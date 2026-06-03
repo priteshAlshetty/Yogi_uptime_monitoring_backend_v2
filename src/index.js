@@ -32,5 +32,6 @@ app.use("/dashboard", dashboardNewRoutes)
 
 // Start the server
 app.listen(port, "0.0.0.0", () => {
-    console.log(`Server is running on http://0.0.0.0:${port}`);
+    console.log(`Server is running on http://127.0.0.1:${port}`);
+    console.log(`api docs is running on http://127.0.0.1:${port}/api-docs`);
 });
