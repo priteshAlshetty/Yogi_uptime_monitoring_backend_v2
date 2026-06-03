@@ -1,0 +1,70 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build output
+dist/
+build/
+
+# Temporary files
+.tmp/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Cache directories
+.cache/
+.nyc_output/
+coverage/
+.idea/
+.vscode/
+*.bak
+
+# Database config or sensitive files
+db.json
+*.sql
+
+# Debug files
+debug.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# pm2 logs
+pm2_logs/
+
+# reports
+src/controllers/reports
+.xlsx
+*.xlsx
+#deployement related
+.bat
+*.bat
+dockerfile
+
+test.js
+*.Ink
+.Ink

@@ -1,0 +1,48 @@
+
+version: '1.0'
+services:
+
+  mysql:
+      image: mysql:8.0
+      container_name: yogi-docker-mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: "1234"
+        MYSQL_DATABASE: "yogi_uptime"
+        TZ: "Asia/Kolkata"     
+      ports:
+        - "3311:3306"  # Avoid conflict with local MySQL
+      volumes:
+        - yogi-mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: yogi-docker-phpmyadmin
+      restart: always
+      environment:
+        PMA_HOST: mysql
+        PMA_USER: root
+        PMA_PASSWORD: "1234"
+        TZ: "Asia/Kolkata"     
+      ports:
+        - "8082:80"
+      depends_on:
+        - mysql
+
+  nodered:
+      image: nodered/node-red
+      container_name: yogi-docker-nodered
+      restart: always
+      environment:
+        TZ: "Asia/Kolkata"     
+      ports:
+        - "1887:1880"  # Host 1881 maps to internal 1880
+      volumes:
+        - yogi-nodered-data:/data
+      depends_on:
+        - mysql
+
+
+volumes:
+  yogi-mysql-data:
+  yogi-nodered-data:

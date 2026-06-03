@@ -1,0 +1,718 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(212, 214, 234);
+}
+
+.container {
+    width: 60%;
+    height: 70vh;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.container:hover {
+    box-shadow: rgba(201, 181, 255, 0.35) 0px 5px 15px;
+}
+
+.left-containers {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffff;
+}
+
+.Right-containers {
+    width: 50%;
+    background-image: url(/img/19854.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+
+.login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: aquamarine; */
+}
+
+.heading {
+    text-align: center;
+}
+
+.formdetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+}
+
+.formdetails input {
+    width: 100%;
+    border: none;
+    border: 0.5px solid gainsboro;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.formdetails a {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: rgb(1, 111, 235);
+    color: #ffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.btn:hover {
+    background-color: rgba(1, 110, 235, 0.692);
+}
+
+.login-footer footer {
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+
+}
+
+p {
+    font-size: 10px;
+}
+
+/* -----------popup----------
+ */
+.errorimg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorimg img {
+    width: 50%;
+
+}
+
+
+
+@media (max-width: 1300px) {
+    .left-containers {
+        width: 100%;
+    }
+
+    .Right-containers {
+        width: 0;
+    }
+
+    .container {
+        width: 75%;
+        height: 50vh;
+    }
+
+    #preloader {
+        background-size: 15%;
+    }
+
+}
+
+/* ----------------------------Homepage------------------------------- */
+
+.homepage {
+    width: 100%;
+    height: 100vh;
+
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+
+}
+
+.left-dash {
+    width: 15%;
+    background-color: rgb(24 10 111);
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    transition: background-color 0.4s ease-in-out;
+
+}
+
+.left-dash:hover {
+    background-color: rgb(38, 21, 148);
+}
+
+.Right-dash {
+    width: 85%;
+    background-color: rgb(231, 238, 247);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+ul li img {
+    width: 15px;
+    color: #ffffffe1;
+    margin-right: 10px;
+
+}
+
+ul {
+    list-style: none;
+    width: 100%;
+}
+
+li {
+    text-align: left;
+    padding-block: 15px;
+    padding-left: 15px;
+}
+
+.left-middle-sec ul li {
+    transition: background-color 0.5s ease;
+    /* Adds transition for background-color */
+}
+
+.left-middle-sec ul li:hover {
+    background-color: rgb(41 53 120);
+    cursor: pointer;
+
+}
+
+
+.profile-username {
+    text-align: center;
+    font-size: 15px;
+}
+
+
+/* Base styles (for larger screens) */
+.left-middle-sec ul li {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+
+.left-middle-sec ul li img {
+    margin-right: 10px;
+    /* Add space between the icon and the text */
+}
+
+/* Media query for screens smaller than 1300px */
+@media (max-width: 1300px) {
+    .left-middle-sec ul li span {
+        display: none;
+        /* Hide the text */
+    }
+
+    .left-middle-sec ul li {
+        justify-content: center;
+    }
+
+    .profile img {
+        width: 50%;
+    }
+
+
+
+    /* .profile{
+        display: none;
+    } */
+
+}
+
+@media (max-width: 768px) {
+
+    .profile {
+        display: none;
+    }
+}
+
+
+.profile {
+    justify-content: center;
+
+}
+
+
+
+
+
+.active {
+    /* background-color: rgb(41 53 120); */
+    background-color: rgb(69, 55, 160);
+
+}
+
+.left-first-sec {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.left-middle-sec {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-last-sec {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-last-sec li a {
+    text-decoration: none;
+    color: #ffffffe1;
+
+}
+
+.left-last-sec ul li:hover {
+    background-color: rgb(70, 107, 253);
+    cursor: pointer;
+
+}
+
+.left-middle-sec img {
+    filter: invert(1) grayscale(100%) brightness(100%) sepia(0) saturate(0);
+    height: 16px;
+    /* Adjust size */
+    width: 16px;
+    /* Adjust size */
+}
+
+.profile img {
+    width: 100px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 4px solid #ffff;
+    margin-top: 10px;
+}
+
+.left-heading h2 {
+    font-weight: 300;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: inherit;
+    text-align: center;
+}
+
+.left-last-sec img {
+    filter: invert(1) grayscale(100%) brightness(100%) sepia(0) saturate(0);
+    height: 16px;
+    /* Adjust size */
+    width: 16px;
+    /* Adjust size */
+    cursor: pointer;
+}
+
+/* ----------------------------Homepage------------------------------- */
+
+
+/* ---------------------------table css------------------------------ */
+
+.table-container {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: white;
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s ease;
+
+}
+
+#table-container {
+    display: none;
+}
+
+.table-container:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+/* Title styling */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Table styling */
+.machine-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.machine-table th,
+.machine-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.machine-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+}
+
+.machine-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.machine-table tr:hover {
+    background-color: #ddd;
+}
+
+.machine-table td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style for the Status column */
+.machine-table td:nth-child(4) {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Change status color */
+.machine-table td:nth-child(4):contains('ON') {
+    color: green;
+}
+
+.machine-table td:nth-child(4):contains('OFF') {
+    color: red;
+}
+
+/* Responsive table for small screens */
+@media screen and (max-width: 768px) {
+
+    .machine-table th,
+    .machine-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+}
+
+/* ---------------------------table css------------------------------ */
+
+.Right-dash {
+    padding-block: 20px;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+
+
+    padding: 15px;
+    margin-top: 5px;
+
+}
+
+
+.getDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 90%;
+    margin: 15px auto;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.getDetails input {
+    background-color: rgb(255, 244, 244);
+    padding: 10px;
+    margin-right: 20px;
+    border: none;
+    text-transform: uppercase;
+}
+
+.getDetails input:hover {
+    background-color: rgb(233, 243, 247);
+}
+
+
+.getDetails input:active,
+.getDetails input:focus {
+    border: none;
+    outline: none;
+}
+
+.btn2 {
+
+    border: none;
+    outline: none;
+    background-color: rgb(1, 111, 235);
+    color: #ffff;
+    padding: 15px 50px;
+    border-radius: 5px;
+
+}
+
+
+.btn2:hover {
+    background-color: rgba(1, 110, 235, 0.692);
+}
+
+#preloader {
+    /* background: rgba(231, 238, 247, 0.603) url(/img/3dgifmaker91225.gif) no-repeat center center; */
+    background: rgba(0, 0, 0, 0.5) url(/img/3dgifmaker91225.gif) no-repeat center center;
+    background-size: 5%;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}
+
+
+
+
+
+.temperory {
+    width: 85%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* -----------popup---------- */
+#popupMsg {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background-color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 300px;
+}
+
+.popbox {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.warningMsg {
+    width: 100%;
+    text-align: center;
+
+    font-weight: 100;
+}
+
+.warningMsg h3 {
+    font-weight: 200;
+}
+
+.okbtn {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.okclickbtn {
+    width: 60%;
+
+}
+
+
+/* -----------popup---------- */
+
+
+/* --------------logout Popup------------------- */
+.confirmLogOut {
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.LogOutContainer {
+    background-color: #ffff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 300px;
+    padding: 40px;
+}
+
+.warningMsgLogOut {
+    width: 100%;
+    text-align: center;
+}
+
+.Log-buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.LogOutBtn {
+
+    background-color: rgb(1, 111, 235);
+    color: #fff;
+    padding: 20px 40px;
+    border: none;
+    outline: none;
+    text-align: center;
+    border-radius: 20px;
+
+}
+
+.LogOutBtn:hover {
+    background-color: #fff;
+    color: rgb(1, 111, 235);
+    border: 1px solid rgb(1, 111, 235);
+    ;
+}
+
+.LogOutBtn-Cancel {
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(1, 111, 235);
+    padding: 20px 40px;
+    text-align: center;
+    border: 1px solid rgb(1, 111, 235);
+    ;
+    outline: none;
+}
+
+.LogOutBtn-Cancel:hover {
+    background-color: rgb(1, 111, 235);
+    color: #fff;
+}
+
+
+.Log-buttons .LogOutBtn,
+.Log-buttons .LogOutBtn-Cancel {
+    flex: 1;
+    /* Makes the buttons share equal space */
+    margin: 0 40px;
+    /* Adds space between buttons (optional) */
+}
+
+/* --------------logout Popup------------------- */
+
+.badCredentialPopup {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1300px) {
+    #preloader {
+        background-size: 15%;
+    }
+}
+
+
+
+/* ----------------------live animation--------------------- */
+.getting_data_popup {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    /* display: none; */
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.popup_getting_data {
+    background-color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 300px;
+}
+
+.getting_Data_text {
+    margin-bottom: 20px;
+}
+
+/* ----------------------live animation--------------------- */

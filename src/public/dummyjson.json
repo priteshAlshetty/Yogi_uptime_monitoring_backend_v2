@@ -1,0 +1,130 @@
+[
+    {
+        "id": 1,
+        "name": "Machine A",
+        "uptime": 20.5,
+        "downtime": 3.75,
+        "total": 24.0,
+        "percentage": "15.625%"
+    },
+    {
+        "id": 2,
+        "name": "Machine B",
+        "uptime": 18.2,
+        "downtime": 4.3,
+        "total": 22.5,
+        "percentage": "19.11%"
+    },
+    {
+        "id": 3,
+        "name": "Machine C",
+        "uptime": 21.8,
+        "downtime": 2.4,
+        "total": 24.2,
+        "percentage": "9.92%"
+    },
+    {
+        "id": 4,
+        "name": "Machine D",
+        "uptime": 19.0,
+        "downtime": 3.2,
+        "total": 22.2,
+        "percentage": "14.41%"
+    },
+    {
+        "id": 5,
+        "name": "Machine E",
+        "uptime": 22.1,
+        "downtime": 1.5,
+        "total": 23.6,
+        "percentage": "6.36%"
+    },
+    {
+        "id": 6,
+        "name": "Machine F",
+        "uptime": 15.4,
+        "downtime": 5.2,
+        "total": 20.6,
+        "percentage": "25.24%"
+    },
+    {
+        "id": 7,
+        "name": "Machine G",
+        "uptime": 13.7,
+        "downtime": 4.5,
+        "total": 18.2,
+        "percentage": "24.73%"
+    },
+    {
+        "id": 8,
+        "name": "Machine H",
+        "uptime": 16.5,
+        "downtime": 3.8,
+        "total": 20.3,
+        "percentage": "18.72%"
+    },
+    {
+        "id": 9,
+        "name": "Machine I",
+        "uptime": 17.0,
+        "downtime": 4.1,
+        "total": 21.1,
+        "percentage": "19.43%"
+    },
+    {
+        "id": 10,
+        "name": "Machine J",
+        "uptime": 14.8,
+        "downtime": 5.4,
+        "total": 20.2,
+        "percentage": "26.73%"
+    },
+    {
+        "id": 11,
+        "name": "Machine K",
+        "uptime": 19.4,
+        "downtime": 3.0,
+        "total": 22.4,
+        "percentage": "13.39%"
+    },
+    {
+        "id": 12,
+        "name": "Machine L",
+        "uptime": 12.9,
+        "downtime": 5.6,
+        "total": 18.5,
+        "percentage": "30.27%"
+    },
+    {
+        "id": 13,
+        "name": "Machine M",
+        "uptime": 17.9,
+        "downtime": 4.8,
+        "total": 22.7,
+        "percentage": "21.12%"
+    },
+    {
+        "id": 14,
+        "name": "Machine N",
+        "uptime": 15.0,
+        "downtime": 5.1,
+        "total": 20.1,
+        "percentage": "25.37%"
+    },
+    {
+        "id": 15,
+        "name": "Machine O",
+        "uptime": 18.6,
+        "downtime": 3.3,
+        "total": 21.9,
+        "percentage": "15.08%"
+    },
+    {
+        "id": 16,
+        "name": "Machine P",
+        "uptime": 16.2,
+        "downtime": 4.0,
+        "total": 20.2,
+        "percentage": "19.81%"
+    }
+]

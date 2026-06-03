@@ -1,0 +1,3318 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "YOGI",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "4d53521bd5dda844",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "03cc572c6b0a8127",
+        "type": "tab",
+        "label": "YOGI-1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0684bb9b751bba2b",
+        "type": "tab",
+        "label": "YOGI-2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0e04dd83d584e815",
+        "type": "tab",
+        "label": "YOGI-3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1c6c96699320660c",
+        "type": "tab",
+        "label": "YOGI-4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b203bc40ecbb6dd2",
+        "type": "tab",
+        "label": "YOGI-5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "288aa5f60ace8be3",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "605aecf873e91586",
+        "type": "tab",
+        "label": "Flow 2 test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a6fd89ac36607fc7",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b06e3b354a811f6c",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "mysql",
+        "port": "3306",
+        "db": "yogi_uptime",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "de594bf2c4db53ae",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://192.168.1.9:4840",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "965a382d0ee241f1",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "34.93.153.71",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "49f10323466ce6f3",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "98853bbae14079c9"
+            ]
+        ]
+    },
+    {
+        "id": "98853bbae14079c9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "KHAL_Mixing_01",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "762ffee24e977335",
+                "a9226b08b1eeeea3"
+            ]
+        ]
+    },
+    {
+        "id": "762ffee24e977335",
+        "type": "OpcUa-Item",
+        "z": "f6f2187d.f17ca8",
+        "item": "ns=4;i=5",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "Machine Start",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "961725018de89160"
+            ]
+        ]
+    },
+    {
+        "id": "a9226b08b1eeeea3",
+        "type": "OpcUa-Item",
+        "z": "f6f2187d.f17ca8",
+        "item": "ns=4;i=6;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "Machine_stop",
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "425e1afd37c7f5b0"
+            ]
+        ]
+    },
+    {
+        "id": "961725018de89160",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "start",
+        "func": "msg.machineStatus = \"ON\";\nmsg.machineEvent = \"start\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 80,
+        "wires": [
+            [
+                "3ae360383c98498f"
+            ]
+        ]
+    },
+    {
+        "id": "425e1afd37c7f5b0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Stop",
+        "func": "msg.machineStatus = \"OFF\";\nmsg.machineEvent = \"stop\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 200,
+        "wires": [
+            [
+                "545899fdc19f927e"
+            ]
+        ]
+    },
+    {
+        "id": "3ae360383c98498f",
+        "type": "OpcUa-Client",
+        "z": "f6f2187d.f17ca8",
+        "endpoint": "",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 840,
+        "y": 80,
+        "wires": [
+            [
+                "9d0ef761bcbdc9a2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "545899fdc19f927e",
+        "type": "OpcUa-Client",
+        "z": "f6f2187d.f17ca8",
+        "endpoint": "",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 840,
+        "y": 200,
+        "wires": [
+            [
+                "9d0ef761bcbdc9a2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9d0ef761bcbdc9a2",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "if (msg.payload){\n    msg.trigger = 'true'\n}else{\n    msg.trigger ='false'\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 60,
+        "wires": [
+            [
+                "e7347907ea3f9698"
+            ]
+        ]
+    },
+    {
+        "id": "e7347907ea3f9698",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1070,
+        "y": 200,
+        "wires": [
+            [],
+            [
+                "e4fdf589a1803eec",
+                "813b9770dc94a6a0"
+            ]
+        ]
+    },
+    {
+        "id": "e4fdf589a1803eec",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Query--> ON-OFF logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 320,
+        "wires": [
+            [
+                "c19e92d4fd1b9f90",
+                "4c56f102bca2ccd3"
+            ]
+        ]
+    },
+    {
+        "id": "813b9770dc94a6a0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set start time",
+        "func": "let now = new Date().getTime();\n msg.statusStamp = now;\nif (msg.machineEvent ===\"start\"){\n \nflow.set('KHAL_Mixing_01_start_time', now)\n flow.set('KHAL_Mixing_01_stop_time', null) \n}\nelse{\n   flow.set('KHAL_Mixing_01_stop_time', now) \n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "c5ac8991e8fa50e0"
+            ]
+        ]
+    },
+    {
+        "id": "c5ac8991e8fa50e0",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "machineEvent",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 190,
+        "y": 520,
+        "wires": [
+            [
+                "e1a16513b311dc89"
+            ],
+            [
+                "3d07afcc929cdd4d"
+            ]
+        ]
+    },
+    {
+        "id": "e1a16513b311dc89",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "STARTED",
+        "func": "msg.machineStatus = {\n    \"display\": ` ${msg.machine_id} is  ${msg.machineEvent}ed. `,\n    \"stamp\" : msg.statusStamp\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 460,
+        "wires": [
+            [
+                "e08d5750df50601f"
+            ]
+        ]
+    },
+    {
+        "id": "e08d5750df50601f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3d07afcc929cdd4d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "STOPPED : create entry",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "ceca5390d32e9c49"
+            ]
+        ]
+    },
+    {
+        "id": "ceca5390d32e9c49",
+        "type": "moment",
+        "z": "f6f2187d.f17ca8",
+        "name": "format start time",
+        "topic": "",
+        "input": "entry.start_time",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.start_time",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 650,
+        "y": 580,
+        "wires": [
+            [
+                "07ada886bdcfd26e"
+            ]
+        ]
+    },
+    {
+        "id": "07ada886bdcfd26e",
+        "type": "moment",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "",
+        "input": "entry.stop_time",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stop_time",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 930,
+        "y": 580,
+        "wires": [
+            [
+                "68640251a289da9f"
+            ]
+        ]
+    },
+    {
+        "id": "68640251a289da9f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Query: entry insert",
+        "func": "function formatDateTime(ts) {\n    const d = new Date(ts);\n    return d.toISOString().slice(0, 19).replace('T', ' ');\n}\n\nif (msg.entry) {\n    let start_time = msg.entry.start_time;\n    let stop_time = msg.entry.stop_time;\n\n    msg.topic = `INSERT INTO uptime (ID,\n        machine_id, start_time, stop_time, \n        uptime_ms, uptime_sec, uptime_hr\n    ) VALUES (\n        ${msg.numeric_id},\n        '${msg.entry.machine_id}', \n        '${start_time}', \n        '${stop_time}', \n        ${msg.entry.uptime_ms}, \n        ${msg.entry.uptime_sec}, \n        ${msg.entry.uptime_hr}\n    )`;\n\n    return msg;\n}\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 580,
+        "wires": [
+            [
+                "70a1147e23011b22",
+                "4c56f102bca2ccd3"
+            ]
+        ]
+    },
+    {
+        "id": "af55129158d2e913",
+        "type": "catch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 220,
+        "y": 740,
+        "wires": [
+            [
+                "917db661e72eed42"
+            ]
+        ]
+    },
+    {
+        "id": "917db661e72eed42",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "c19e92d4fd1b9f90",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [],
+        "x": 1075,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "70a1147e23011b22",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [],
+        "x": 1065,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4c56f102bca2ccd3",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7240839a9f955a86",
+        "type": "mysql",
+        "z": "4d53521bd5dda844",
+        "mydb": "b06e3b354a811f6c",
+        "name": "YOGI",
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "a3db8f1d4a124177"
+            ]
+        ]
+    },
+    {
+        "id": "a3db8f1d4a124177",
+        "type": "debug",
+        "z": "4d53521bd5dda844",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "4f8ac9ed6dc58112",
+        "type": "link in",
+        "z": "4d53521bd5dda844",
+        "name": "SQL Query link in",
+        "links": [
+            "1a3586ad10d7d4c6",
+            "d51fdad7ee0b791d",
+            "31523d020dd64ef1",
+            "fea5638f2d4dda47",
+            "86d2bfc19ac7970a",
+            "acb13aef5d2205e5"
+        ],
+        "x": 135,
+        "y": 120,
+        "wires": [
+            [
+                "7240839a9f955a86"
+            ]
+        ]
+    },
+    {
+        "id": "a38d37284eda643d",
+        "type": "inject",
+        "z": "4d53521bd5dda844",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM uptime",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "7240839a9f955a86"
+            ]
+        ]
+    },
+    {
+        "id": "7e73d77890898f96",
+        "type": "catch",
+        "z": "4d53521bd5dda844",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 420,
+        "wires": [
+            [
+                "29d6a1b7a23b2c5e"
+            ]
+        ]
+    },
+    {
+        "id": "29d6a1b7a23b2c5e",
+        "type": "debug",
+        "z": "4d53521bd5dda844",
+        "name": "sql debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d71ca29382212c7a",
+        "type": "comment",
+        "z": "4d53521bd5dda844",
+        "name": "FINAL BACKUP 11-06-2025",
+        "info": "",
+        "x": 220,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "bd431e8c1acf33c8",
+        "type": "inject",
+        "z": "03cc572c6b0a8127",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "012d20063ecc880f"
+            ]
+        ]
+    },
+    {
+        "id": "012d20063ecc880f",
+        "type": "function",
+        "z": "03cc572c6b0a8127",
+        "name": "KHAL_MIXING_01",
+        "func": "\nmsg.machine_id= \"KHAL_MIXING_01\";\nmsg.numeric_id = 1;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "6e2b2279cd9878f0"
+            ]
+        ]
+    },
+    {
+        "id": "6e2b2279cd9878f0",
+        "type": "OpcUa-Item",
+        "z": "03cc572c6b0a8127",
+        "item": "ns=4;i=14;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "KHAL_01_:: I0.0",
+        "x": 580,
+        "y": 60,
+        "wires": [
+            [
+                "17b51efbcafd42b9"
+            ]
+        ]
+    },
+    {
+        "id": "17b51efbcafd42b9",
+        "type": "OpcUa-Client",
+        "z": "03cc572c6b0a8127",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 810,
+        "y": 60,
+        "wires": [
+            [
+                "3c54ef7d194c6292"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3c54ef7d194c6292",
+        "type": "function",
+        "z": "03cc572c6b0a8127",
+        "name": "Capture event khal 01",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('KHAL_MIXING_01_start_time', now);\n    flow.set('KHAL_MIXING_01_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('KHAL_MIXING_01_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 40,
+        "wires": [
+            [
+                "f3a43193f84902fb",
+                "daa48bd8ce0e067c"
+            ]
+        ]
+    },
+    {
+        "id": "f3a43193f84902fb",
+        "type": "switch",
+        "z": "03cc572c6b0a8127",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "bdbb17de67090a29"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bdbb17de67090a29",
+        "type": "function",
+        "z": "03cc572c6b0a8127",
+        "name": "KHAL_MIXING_01",
+        "func": "\nlet startTime = flow.get('KHAL_MIXING_01_start_time');\nlet stopTime = flow.get('KHAL_MIXING_01_stop_time');\n\nflow.set('KHAL_MIXING_01_start_time',null);\nflow.set('KHAL_MIXING_01_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "570023e48f451c58"
+            ]
+        ]
+    },
+    {
+        "id": "570023e48f451c58",
+        "type": "moment",
+        "z": "03cc572c6b0a8127",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 550,
+        "y": 200,
+        "wires": [
+            [
+                "936a7747f36b802e"
+            ]
+        ]
+    },
+    {
+        "id": "936a7747f36b802e",
+        "type": "moment",
+        "z": "03cc572c6b0a8127",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 760,
+        "y": 200,
+        "wires": [
+            [
+                "967ff2988d1c5484"
+            ]
+        ]
+    },
+    {
+        "id": "967ff2988d1c5484",
+        "type": "function",
+        "z": "03cc572c6b0a8127",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 200,
+        "wires": [
+            [
+                "1a3586ad10d7d4c6",
+                "a80e6a1c447366ff"
+            ]
+        ]
+    },
+    {
+        "id": "1a3586ad10d7d4c6",
+        "type": "link out",
+        "z": "03cc572c6b0a8127",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1135,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a80e6a1c447366ff",
+        "type": "debug",
+        "z": "03cc572c6b0a8127",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "daa48bd8ce0e067c",
+        "type": "function",
+        "z": "03cc572c6b0a8127",
+        "name": "SQL Query for onn off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 140,
+        "wires": [
+            [
+                "9a8f6fc13194f790",
+                "1a3586ad10d7d4c6"
+            ]
+        ]
+    },
+    {
+        "id": "9a8f6fc13194f790",
+        "type": "debug",
+        "z": "03cc572c6b0a8127",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c3e96da0999acc46",
+        "type": "comment",
+        "z": "03cc572c6b0a8127",
+        "name": "NS=4;I=14",
+        "info": "",
+        "x": 580,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "e682055826c070ca",
+        "type": "catch",
+        "z": "03cc572c6b0a8127",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "653edba3a9506824"
+            ]
+        ]
+    },
+    {
+        "id": "653edba3a9506824",
+        "type": "debug",
+        "z": "03cc572c6b0a8127",
+        "name": "YOGI-1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "9aa3f9ace1986989",
+        "type": "inject",
+        "z": "03cc572c6b0a8127",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_01",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 700,
+        "y": 140,
+        "wires": [
+            [
+                "3c54ef7d194c6292"
+            ]
+        ]
+    },
+    {
+        "id": "93a42cf4f6329526",
+        "type": "inject",
+        "z": "03cc572c6b0a8127",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_01",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 660,
+        "y": 280,
+        "wires": [
+            [
+                "3c54ef7d194c6292"
+            ]
+        ]
+    },
+    {
+        "id": "5ecd5c61400814e5",
+        "type": "inject",
+        "z": "0684bb9b751bba2b",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "e0cbac266a799693"
+            ]
+        ]
+    },
+    {
+        "id": "e0cbac266a799693",
+        "type": "function",
+        "z": "0684bb9b751bba2b",
+        "name": "KHAL_MIXING_02",
+        "func": "\nmsg.machine_id= \"KHAL_MIXING_02\";\nmsg.numeric_id = 2;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "e634e25f34afd348"
+            ]
+        ]
+    },
+    {
+        "id": "e634e25f34afd348",
+        "type": "OpcUa-Item",
+        "z": "0684bb9b751bba2b",
+        "item": "ns=4;i=15;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "KHAL_MIXING_02:: I0.1",
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "9fc16c389ed7242e"
+            ]
+        ]
+    },
+    {
+        "id": "9fc16c389ed7242e",
+        "type": "OpcUa-Client",
+        "z": "0684bb9b751bba2b",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 820,
+        "y": 80,
+        "wires": [
+            [
+                "9f57adeeba77b545"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9f57adeeba77b545",
+        "type": "function",
+        "z": "0684bb9b751bba2b",
+        "name": "Capture event khal 02",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('KHAL_MIXING_02_start_time', now);\n    flow.set('KHAL_MIXING_02_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('KHAL_MIXING_02_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 60,
+        "wires": [
+            [
+                "a49606e688649244",
+                "f697e5767fc5f40d"
+            ]
+        ]
+    },
+    {
+        "id": "a49606e688649244",
+        "type": "switch",
+        "z": "0684bb9b751bba2b",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 90,
+        "y": 200,
+        "wires": [
+            [
+                "d8feae584d3f0765"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d8feae584d3f0765",
+        "type": "function",
+        "z": "0684bb9b751bba2b",
+        "name": "KHAL_MIXING_02",
+        "func": "\nlet startTime = flow.get('KHAL_MIXING_02_start_time');\nlet stopTime = flow.get('KHAL_MIXING_02_stop_time');\n\nflow.set('KHAL_MIXING_02_start_time',null);\nflow.set('KHAL_MIXING_02_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "a6b87fd11eafafc8"
+            ]
+        ]
+    },
+    {
+        "id": "a6b87fd11eafafc8",
+        "type": "moment",
+        "z": "0684bb9b751bba2b",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "90762b39d6368da1"
+            ]
+        ]
+    },
+    {
+        "id": "90762b39d6368da1",
+        "type": "moment",
+        "z": "0684bb9b751bba2b",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 770,
+        "y": 220,
+        "wires": [
+            [
+                "ccd1c60435c22a20"
+            ]
+        ]
+    },
+    {
+        "id": "ccd1c60435c22a20",
+        "type": "function",
+        "z": "0684bb9b751bba2b",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 220,
+        "wires": [
+            [
+                "d51fdad7ee0b791d",
+                "b7fb3f219704d49b"
+            ]
+        ]
+    },
+    {
+        "id": "d51fdad7ee0b791d",
+        "type": "link out",
+        "z": "0684bb9b751bba2b",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1115,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b7fb3f219704d49b",
+        "type": "debug",
+        "z": "0684bb9b751bba2b",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f697e5767fc5f40d",
+        "type": "function",
+        "z": "0684bb9b751bba2b",
+        "name": "SQL Query for onn off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 160,
+        "wires": [
+            [
+                "2cff93777e61d901",
+                "d51fdad7ee0b791d"
+            ]
+        ]
+    },
+    {
+        "id": "2cff93777e61d901",
+        "type": "debug",
+        "z": "0684bb9b751bba2b",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b66683a0dfe549fe",
+        "type": "comment",
+        "z": "0684bb9b751bba2b",
+        "name": "NS=4;I=15",
+        "info": "",
+        "x": 560,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c9b222224d79429f",
+        "type": "catch",
+        "z": "0684bb9b751bba2b",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "bb7a4b226d4b7777"
+            ]
+        ]
+    },
+    {
+        "id": "bb7a4b226d4b7777",
+        "type": "debug",
+        "z": "0684bb9b751bba2b",
+        "name": "YOGI-2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "5bfe2e9fb84f9204",
+        "type": "inject",
+        "z": "0684bb9b751bba2b",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_02",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 540,
+        "y": 300,
+        "wires": [
+            [
+                "9f57adeeba77b545"
+            ]
+        ]
+    },
+    {
+        "id": "8c93b1323a0b488b",
+        "type": "inject",
+        "z": "0684bb9b751bba2b",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_02",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "9f57adeeba77b545"
+            ]
+        ]
+    },
+    {
+        "id": "a6dccead2493a43b",
+        "type": "inject",
+        "z": "0e04dd83d584e815",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "499d7176fea4625f"
+            ]
+        ]
+    },
+    {
+        "id": "499d7176fea4625f",
+        "type": "function",
+        "z": "0e04dd83d584e815",
+        "name": "KHAL_MIXING_03",
+        "func": "\nmsg.machine_id= \"KHAL_MIXING_03\";\nmsg.numeric_id = 3;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "f1fd0164aa477e8a"
+            ]
+        ]
+    },
+    {
+        "id": "f1fd0164aa477e8a",
+        "type": "OpcUa-Item",
+        "z": "0e04dd83d584e815",
+        "item": "ns=4;i=16;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "KHAL_MIXING_03:: I0.2",
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "34bc388211882389"
+            ]
+        ]
+    },
+    {
+        "id": "34bc388211882389",
+        "type": "OpcUa-Client",
+        "z": "0e04dd83d584e815",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 840,
+        "y": 80,
+        "wires": [
+            [
+                "c8f0114be34a1df6"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c8f0114be34a1df6",
+        "type": "function",
+        "z": "0e04dd83d584e815",
+        "name": "Capture event khal 03",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('KHAL_MIXING_03_start_time', now);\n    flow.set('KHAL_MIXING_03_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('KHAL_MIXING_03_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 60,
+        "wires": [
+            [
+                "33ff5d168c150282",
+                "352ba8e0d67895b2"
+            ]
+        ]
+    },
+    {
+        "id": "33ff5d168c150282",
+        "type": "switch",
+        "z": "0e04dd83d584e815",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "f3a73b507d9e45d9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f3a73b507d9e45d9",
+        "type": "function",
+        "z": "0e04dd83d584e815",
+        "name": "KHAL_MIXING_03",
+        "func": "\nlet startTime = flow.get('KHAL_MIXING_03_start_time');\nlet stopTime = flow.get('KHAL_MIXING_03_stop_time');\n\nflow.set('KHAL_MIXING_03_start_time',null);\nflow.set('KHAL_MIXING_03_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "6d35e11f5b015c92"
+            ]
+        ]
+    },
+    {
+        "id": "6d35e11f5b015c92",
+        "type": "moment",
+        "z": "0e04dd83d584e815",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "8f4439f9dc83c279"
+            ]
+        ]
+    },
+    {
+        "id": "8f4439f9dc83c279",
+        "type": "moment",
+        "z": "0e04dd83d584e815",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 790,
+        "y": 220,
+        "wires": [
+            [
+                "907c3fe25cadfc13"
+            ]
+        ]
+    },
+    {
+        "id": "907c3fe25cadfc13",
+        "type": "function",
+        "z": "0e04dd83d584e815",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 220,
+        "wires": [
+            [
+                "31523d020dd64ef1",
+                "3826ba1bd027290d"
+            ]
+        ]
+    },
+    {
+        "id": "31523d020dd64ef1",
+        "type": "link out",
+        "z": "0e04dd83d584e815",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1135,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "3826ba1bd027290d",
+        "type": "debug",
+        "z": "0e04dd83d584e815",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "352ba8e0d67895b2",
+        "type": "function",
+        "z": "0e04dd83d584e815",
+        "name": "SQL Query for onn off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 160,
+        "wires": [
+            [
+                "42b54fe8f6425bb4",
+                "31523d020dd64ef1"
+            ]
+        ]
+    },
+    {
+        "id": "42b54fe8f6425bb4",
+        "type": "debug",
+        "z": "0e04dd83d584e815",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "613d1d3bb404aed1",
+        "type": "comment",
+        "z": "0e04dd83d584e815",
+        "name": "NS=4;I=16",
+        "info": "",
+        "x": 580,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "20868d456e56a052",
+        "type": "catch",
+        "z": "0e04dd83d584e815",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 340,
+        "wires": [
+            [
+                "1cf0657d8e638699"
+            ]
+        ]
+    },
+    {
+        "id": "1cf0657d8e638699",
+        "type": "debug",
+        "z": "0e04dd83d584e815",
+        "name": "YOGI-3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4fea77fd12af21d8",
+        "type": "inject",
+        "z": "0e04dd83d584e815",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_03",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "c8f0114be34a1df6"
+            ]
+        ]
+    },
+    {
+        "id": "4ed304a4c21f4b3f",
+        "type": "inject",
+        "z": "0e04dd83d584e815",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_03",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "c8f0114be34a1df6"
+            ]
+        ]
+    },
+    {
+        "id": "cfb8f07d060593eb",
+        "type": "inject",
+        "z": "1c6c96699320660c",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "dfc3396e1fc104a3"
+            ]
+        ]
+    },
+    {
+        "id": "dfc3396e1fc104a3",
+        "type": "function",
+        "z": "1c6c96699320660c",
+        "name": "HOLOGRAM",
+        "func": "\nmsg.machine_id= \"HOLOGRAM\";\nmsg.numeric_id = 4;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 100,
+        "wires": [
+            [
+                "2ccba2ce3485c0a4"
+            ]
+        ]
+    },
+    {
+        "id": "2ccba2ce3485c0a4",
+        "type": "OpcUa-Item",
+        "z": "1c6c96699320660c",
+        "item": "ns=4;i=11;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "HOLOGRAM:: I0.4",
+        "x": 590,
+        "y": 100,
+        "wires": [
+            [
+                "fbea275de84428b8"
+            ]
+        ]
+    },
+    {
+        "id": "fbea275de84428b8",
+        "type": "OpcUa-Client",
+        "z": "1c6c96699320660c",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "77af4b174c6d0a4f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "77af4b174c6d0a4f",
+        "type": "function",
+        "z": "1c6c96699320660c",
+        "name": "Capture event hologram",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('HOLOGRAM_start_time', now);\n    flow.set('HOLOGRAM_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('HOLOGRAM_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 80,
+        "wires": [
+            [
+                "68765af5d42e442a",
+                "4484629403351c52"
+            ]
+        ]
+    },
+    {
+        "id": "68765af5d42e442a",
+        "type": "switch",
+        "z": "1c6c96699320660c",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "a2c0302fe91b38fe"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a2c0302fe91b38fe",
+        "type": "function",
+        "z": "1c6c96699320660c",
+        "name": "HOLOGRAM",
+        "func": "\nlet startTime = flow.get('HOLOGRAM_start_time');\nlet stopTime = flow.get('HOLOGRAM_stop_time');\n\nflow.set('HOLOGRAM_start_time',null);\nflow.set('HOLOGRAM_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "0f5ae831c3143046"
+            ]
+        ]
+    },
+    {
+        "id": "0f5ae831c3143046",
+        "type": "moment",
+        "z": "1c6c96699320660c",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 550,
+        "y": 240,
+        "wires": [
+            [
+                "900358f1ded92dd7"
+            ]
+        ]
+    },
+    {
+        "id": "900358f1ded92dd7",
+        "type": "moment",
+        "z": "1c6c96699320660c",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 790,
+        "y": 240,
+        "wires": [
+            [
+                "0c6f0c603328590d"
+            ]
+        ]
+    },
+    {
+        "id": "0c6f0c603328590d",
+        "type": "function",
+        "z": "1c6c96699320660c",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 240,
+        "wires": [
+            [
+                "fea5638f2d4dda47",
+                "0fe6bfb431da1c45"
+            ]
+        ]
+    },
+    {
+        "id": "fea5638f2d4dda47",
+        "type": "link out",
+        "z": "1c6c96699320660c",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1135,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "0fe6bfb431da1c45",
+        "type": "debug",
+        "z": "1c6c96699320660c",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4484629403351c52",
+        "type": "function",
+        "z": "1c6c96699320660c",
+        "name": "SQL Query for onn off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 180,
+        "wires": [
+            [
+                "9a5a4c16455493d8",
+                "fea5638f2d4dda47"
+            ]
+        ]
+    },
+    {
+        "id": "9a5a4c16455493d8",
+        "type": "debug",
+        "z": "1c6c96699320660c",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "96e5705310d36c63",
+        "type": "comment",
+        "z": "1c6c96699320660c",
+        "name": "NS=4;I=11",
+        "info": "",
+        "x": 560,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "071b79579e73eb90",
+        "type": "catch",
+        "z": "1c6c96699320660c",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "d3370d931f627b8e"
+            ]
+        ]
+    },
+    {
+        "id": "d3370d931f627b8e",
+        "type": "debug",
+        "z": "1c6c96699320660c",
+        "name": "YOGI-4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b8f813ae483cb61a",
+        "type": "inject",
+        "z": "1c6c96699320660c",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "4",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "JETPACK",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 540,
+        "y": 340,
+        "wires": [
+            [
+                "77af4b174c6d0a4f"
+            ]
+        ]
+    },
+    {
+        "id": "d41a8d87d55b557c",
+        "type": "inject",
+        "z": "1c6c96699320660c",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "4",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "JETPACK",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 580,
+        "y": 200,
+        "wires": [
+            [
+                "77af4b174c6d0a4f"
+            ]
+        ]
+    },
+    {
+        "id": "34119829226bb140",
+        "type": "inject",
+        "z": "b203bc40ecbb6dd2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "d2418847ca4b1b75"
+            ]
+        ]
+    },
+    {
+        "id": "d2418847ca4b1b75",
+        "type": "function",
+        "z": "b203bc40ecbb6dd2",
+        "name": "JETPACK",
+        "func": "\nmsg.machine_id= \"JETPACK\";\nmsg.numeric_id = 5;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "53186f25b7d6f71f"
+            ]
+        ]
+    },
+    {
+        "id": "53186f25b7d6f71f",
+        "type": "OpcUa-Item",
+        "z": "b203bc40ecbb6dd2",
+        "item": "ns=4;i=13;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "JETPACK:: I0.4",
+        "x": 600,
+        "y": 80,
+        "wires": [
+            [
+                "6bee3782df5226f0"
+            ]
+        ]
+    },
+    {
+        "id": "6bee3782df5226f0",
+        "type": "OpcUa-Client",
+        "z": "b203bc40ecbb6dd2",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 860,
+        "y": 80,
+        "wires": [
+            [
+                "19df93bcadc89f7f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "19df93bcadc89f7f",
+        "type": "function",
+        "z": "b203bc40ecbb6dd2",
+        "name": "Capture event jetpack",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('JETPACK_start_time', now);\n    flow.set('JETPACK_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('JETPACK_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 60,
+        "wires": [
+            [
+                "1e161d5c76ddb8ac",
+                "dc073141f60c3287"
+            ]
+        ]
+    },
+    {
+        "id": "1e161d5c76ddb8ac",
+        "type": "switch",
+        "z": "b203bc40ecbb6dd2",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "7658789118c20857"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7658789118c20857",
+        "type": "function",
+        "z": "b203bc40ecbb6dd2",
+        "name": "JETPACK",
+        "func": "\nlet startTime = flow.get('JETPACK_start_time');\nlet stopTime = flow.get('JETPACK_stop_time');\n\nflow.set('JETPACK_start_time',null);\nflow.set('JETPACK_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "8645ce9ebf78eb5c"
+            ]
+        ]
+    },
+    {
+        "id": "8645ce9ebf78eb5c",
+        "type": "moment",
+        "z": "b203bc40ecbb6dd2",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "930b1b05163afcef"
+            ]
+        ]
+    },
+    {
+        "id": "930b1b05163afcef",
+        "type": "moment",
+        "z": "b203bc40ecbb6dd2",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 810,
+        "y": 220,
+        "wires": [
+            [
+                "ee37a0dd90f7f6e7"
+            ]
+        ]
+    },
+    {
+        "id": "ee37a0dd90f7f6e7",
+        "type": "function",
+        "z": "b203bc40ecbb6dd2",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 220,
+        "wires": [
+            [
+                "86d2bfc19ac7970a",
+                "a03727830f1e0d6a"
+            ]
+        ]
+    },
+    {
+        "id": "86d2bfc19ac7970a",
+        "type": "link out",
+        "z": "b203bc40ecbb6dd2",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1155,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a03727830f1e0d6a",
+        "type": "debug",
+        "z": "b203bc40ecbb6dd2",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "dc073141f60c3287",
+        "type": "function",
+        "z": "b203bc40ecbb6dd2",
+        "name": "SQL Query for on off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 160,
+        "wires": [
+            [
+                "a8ff4c9aab4150a9",
+                "86d2bfc19ac7970a"
+            ]
+        ]
+    },
+    {
+        "id": "a8ff4c9aab4150a9",
+        "type": "debug",
+        "z": "b203bc40ecbb6dd2",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1230,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e72e464c2dc32241",
+        "type": "comment",
+        "z": "b203bc40ecbb6dd2",
+        "name": "NS=4;I=13",
+        "info": "",
+        "x": 600,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "26fde6475e3eec98",
+        "type": "catch",
+        "z": "b203bc40ecbb6dd2",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 340,
+        "y": 420,
+        "wires": [
+            [
+                "e77269e1650bc4be"
+            ]
+        ]
+    },
+    {
+        "id": "e77269e1650bc4be",
+        "type": "debug",
+        "z": "b203bc40ecbb6dd2",
+        "name": "YOGI-6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "bf9f8889cf2601d7",
+        "type": "inject",
+        "z": "b203bc40ecbb6dd2",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "5",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "HOLOGRAM",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "19df93bcadc89f7f"
+            ]
+        ]
+    },
+    {
+        "id": "52cacc34f11bced3",
+        "type": "inject",
+        "z": "b203bc40ecbb6dd2",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "5",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "HOLOGRAM",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 580,
+        "y": 180,
+        "wires": [
+            [
+                "19df93bcadc89f7f"
+            ]
+        ]
+    },
+    {
+        "id": "f084e13592a14c7a",
+        "type": "inject",
+        "z": "605aecf873e91586",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "14deab8d60a6b804"
+            ]
+        ]
+    },
+    {
+        "id": "14deab8d60a6b804",
+        "type": "function",
+        "z": "605aecf873e91586",
+        "name": "KHAL_MIXING_03",
+        "func": "\nmsg.machine_id= \"KHAL_MIXING_03\";\nmsg.numeric_id = 3;\nmsg.insertTrigger = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "4d1d72bf8cf14515"
+            ]
+        ]
+    },
+    {
+        "id": "4d1d72bf8cf14515",
+        "type": "OpcUa-Item",
+        "z": "605aecf873e91586",
+        "item": "ns=4;i=16;",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "KHAL_MIXING_03:: I0.2",
+        "x": 570,
+        "y": 160,
+        "wires": [
+            [
+                "d220b4ead4f629e2"
+            ]
+        ]
+    },
+    {
+        "id": "d220b4ead4f629e2",
+        "type": "OpcUa-Client",
+        "z": "605aecf873e91586",
+        "endpoint": "de594bf2c4db53ae",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": false,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "89693149fa6173eb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "89693149fa6173eb",
+        "type": "function",
+        "z": "605aecf873e91586",
+        "name": "Capture event khal 03",
+        "func": "let now = new Date().getTime();\nmsg.statusStamp = now;\n\nif (msg.payload){\n    msg.machineEvent = \"start\";\n    msg.machineStatus = 'ON';\n    flow.set('KHAL_MIXING_03_start_time', now);\n    flow.set('KHAL_MIXING_03_stop_time', null);\n\n}else{\n    msg.machineEvent = \"stop\";\n    msg.machineStatus = 'OFF';\n    flow.set('KHAL_MIXING_03_stop_time', now);\n    msg.insertTrigger= \"True\";\n}\nflow.set('machineEvent', msg.machineEvent);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 140,
+        "wires": [
+            [
+                "a22243570d28f5df",
+                "10d2d2e0723f1494"
+            ]
+        ]
+    },
+    {
+        "id": "a22243570d28f5df",
+        "type": "switch",
+        "z": "605aecf873e91586",
+        "name": "",
+        "property": "insertTrigger",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "True",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "False",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 70,
+        "y": 280,
+        "wires": [
+            [
+                "882ede7e89cf5193"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "882ede7e89cf5193",
+        "type": "function",
+        "z": "605aecf873e91586",
+        "name": "KHAL_MIXING_03",
+        "func": "\nlet startTime = flow.get('KHAL_MIXING_03_start_time');\nlet stopTime = flow.get('KHAL_MIXING_03_stop_time');\n\nflow.set('KHAL_MIXING_03_start_time',null);\nflow.set('KHAL_MIXING_03_start_time',null);\n\n\nlet uptimeMs = 0;\nif (startTime && stopTime) {\n    uptimeMs = stopTime - startTime;\n}\n\n\n\nlet uptimeSec = Math.round(uptimeMs / 1000);\nlet uptimeHr = (uptimeMs / (1000 * 60 * 60)).toFixed(3);\n\nmsg.entry ={\n    \"startTime\": startTime,\n    \"stopTime\": stopTime,\n    \"uptimeMs\": uptimeMs,\n    \"uptimeSec\": uptimeSec,\n    \"uptimeHr\": uptimeHr\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "eba04e8430ec6201"
+            ]
+        ]
+    },
+    {
+        "id": "eba04e8430ec6201",
+        "type": "moment",
+        "z": "605aecf873e91586",
+        "name": "startTime format",
+        "topic": "",
+        "input": "entry.startTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.startTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 510,
+        "y": 300,
+        "wires": [
+            [
+                "130724b01f948bd6"
+            ]
+        ]
+    },
+    {
+        "id": "130724b01f948bd6",
+        "type": "moment",
+        "z": "605aecf873e91586",
+        "name": "stopTime format",
+        "topic": "",
+        "input": "entry.stopTime",
+        "inputType": "msg",
+        "inTz": "Asia/Calcutta",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "en-US",
+        "output": "entry.stopTime",
+        "outputType": "msg",
+        "outTz": "Asia/Calcutta",
+        "x": 750,
+        "y": 300,
+        "wires": [
+            [
+                "b4db74066fc58207"
+            ]
+        ]
+    },
+    {
+        "id": "b4db74066fc58207",
+        "type": "function",
+        "z": "605aecf873e91586",
+        "name": "SQL query",
+        "func": "\nmsg.topic =`INSERT INTO uptime \n(ID,  machine_id, start_time, stop_time, uptime_ms,uptime_sec, uptime_hr)\nVALUES ( ${msg.numeric_id},\n        '${msg.machine_id}',\n        '${msg.entry.startTime}',\n        '${msg.entry.stopTime}',\n         ${msg.entry.uptimeMs},\n         ${msg.entry.uptimeSec},\n         ${msg.entry.uptimeHr}  )`;\n\n         \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 300,
+        "wires": [
+            [
+                "acb13aef5d2205e5",
+                "f16bc5b494cc35ca"
+            ]
+        ]
+    },
+    {
+        "id": "acb13aef5d2205e5",
+        "type": "link out",
+        "z": "605aecf873e91586",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "4f8ac9ed6dc58112"
+        ],
+        "x": 1095,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f16bc5b494cc35ca",
+        "type": "debug",
+        "z": "605aecf873e91586",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "10d2d2e0723f1494",
+        "type": "function",
+        "z": "605aecf873e91586",
+        "name": "SQL Query for onn off logging",
+        "func": "msg.topic = `\nINSERT INTO on_off_logging  \n(ID, machine_id, EVENT)\nVALUES\n(${msg.numeric_id} , '${msg.machine_id}', '${msg.machineStatus}') \n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 240,
+        "wires": [
+            [
+                "03c170da5eee9d78",
+                "acb13aef5d2205e5"
+            ]
+        ]
+    },
+    {
+        "id": "03c170da5eee9d78",
+        "type": "debug",
+        "z": "605aecf873e91586",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "fcadf819d5c56edd",
+        "type": "comment",
+        "z": "605aecf873e91586",
+        "name": "NS=4;I=16",
+        "info": "",
+        "x": 540,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2a74cef08ddfb2db",
+        "type": "catch",
+        "z": "605aecf873e91586",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 100,
+        "y": 420,
+        "wires": [
+            [
+                "de93666ecdb24f3b"
+            ]
+        ]
+    },
+    {
+        "id": "de93666ecdb24f3b",
+        "type": "debug",
+        "z": "605aecf873e91586",
+        "name": "YOGI-3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0297ac3468c94cf3",
+        "type": "inject",
+        "z": "605aecf873e91586",
+        "name": "test trigger OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "6",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_05",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 520,
+        "y": 380,
+        "wires": [
+            [
+                "89693149fa6173eb"
+            ]
+        ]
+    },
+    {
+        "id": "a1199cf500269b30",
+        "type": "inject",
+        "z": "605aecf873e91586",
+        "name": "test trigger ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "numeric_id",
+                "v": "6",
+                "vt": "num"
+            },
+            {
+                "p": "machine_id",
+                "v": "KHAL_MIXING_05",
+                "vt": "str"
+            },
+            {
+                "p": "insertTrigger",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 560,
+        "y": 240,
+        "wires": [
+            [
+                "89693149fa6173eb"
+            ]
+        ]
+    },
+    {
+        "id": "7436c78676dc18d4",
+        "type": "mqtt in",
+        "z": "a6fd89ac36607fc7",
+        "name": "",
+        "topic": "LTRoom/CRNCTL_1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "965a382d0ee241f1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "9807ed5492ebfe9c"
+            ]
+        ]
+    },
+    {
+        "id": "9807ed5492ebfe9c",
+        "type": "debug",
+        "z": "a6fd89ac36607fc7",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 260,
+        "wires": []
+    }
+]

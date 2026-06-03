@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Multiquadrant</title>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+
+	<body>
+		<div id="preloader"></div>
+
+		<div class="confirmLogOut">
+			<div class="LogOutContainer">
+				<div class="warningMsgLogOut">
+					<h3>Are You Sure want to LogOut?</h3>
+				</div>
+				<div class="Log-buttons">
+					<button class="LogOutBtn" id="logout">OK</button>
+					<button class="LogOutBtn-Cancel">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div class="homepage">
+			<div class="main">
+				<div class="left-dash">
+					<div class="left-first-sec">
+						<div class="left-heading">
+							<h2>Yogi Kanthika</h2>
+						</div>
+						<div class="profile"><img src="/img/user.png" alt="" /></div>
+						<div class="profile-username">John Doe</div>
+					</div>
+					<div class="left-middle-sec">
+						<ul>
+							<li id="summary" class="active">
+								<img src="/img/icon/house-solid.svg" alt="" />
+								<span>Summary</span>
+							</li>
+							<li id="uptime-downtime">
+								<img src="/img/icon/calendar-days-regular.svg" alt="" />
+								<span>Uptime/Downtime</span>
+							</li>
+							<li>
+								<img src="/img/icon/clock-regular.svg" alt="" />
+								<span>Uptime</span>
+							</li>
+							<li>
+								<img src="/img/icon/hourglass-regular.svg" alt="" />
+								<span>Downtime</span>
+							</li>
+							<li>
+								<img src="/img/icon/gear-solid.svg" alt="" />
+								<span>Settings</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="left-last-sec">
+						<ul>
+							<!-- <li><img src="/img/icon/arrow-right-from-bracket-solid.svg" alt=""> Logout</li> -->
+							<!-- <li><a href="index.html"><img src="/img/icon/arrow-right-from-bracket-solid.svg" alt=""> Logout</a></li> -->
+							<li class="logout-done" id="primaryLogout">
+								<img
+									src="/img/icon/arrow-right-from-bracket-solid.svg"
+									alt=""
+								/>
+								Logout
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="Right-dash">
+					<div-right-top>
+						<h1>Summary Details</h1>
+					</div-right-top>
+					<div class="table">
+						<div class="tablecontainer">
+							<div class="table-container">
+								<h3>Machine Information</h3>
+								<table class="machine-table">
+									<thead>
+										<tr>
+											<th>Machine ID</th>
+											<th>Name</th>
+											<th>Timestamp</th>
+											<th>Status</th>
+											<!-- New Status column -->
+										</tr>
+									</thead>
+									<tbody>
+										<!-- Row 1 -->
+										<tr>
+											<td>M1</td>
+											<td>Machine A</td>
+											<td>High-performance machine for metal cutting.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<!-- Row 2 -->
+										<tr>
+											<td>M2</td>
+											<td>Machine B</td>
+											<td>Efficient machine for assembly line work.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<!-- Row 3 -->
+										<tr>
+											<td>M3</td>
+											<td>Machine C</td>
+											<td>Automated machine for packaging products.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M4</td>
+											<td>Machine D</td>
+											<td>Precision machine for medical devices.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M5</td>
+											<td>Machine E</td>
+											<td>High-speed machine for printing textiles.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M6</td>
+											<td>Machine F</td>
+											<td>Robotic arm used in assembly tasks.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M7</td>
+											<td>Machine G</td>
+											<td>Multi-purpose machine for welding tasks.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M8</td>
+											<td>Machine H</td>
+											<td>Machine for 3D printing prototypes.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M9</td>
+											<td>Machine I</td>
+											<td>High-efficiency machine for data processing.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M10</td>
+											<td>Machine J</td>
+											<td>Machine for assembly line quality control.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M11</td>
+											<td>Machine K</td>
+											<td>Heavy-duty machine for construction work.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M12</td>
+											<td>Machine L</td>
+											<td>Machine for automatic packaging of electronics.</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M13</td>
+											<td>Machine M</td>
+											<td>Advanced machine for laboratory testing.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M14</td>
+											<td>Machine N</td>
+											<td>
+												Automated machine for sorting goods in warehouses.
+											</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+										<tr>
+											<td>M15</td>
+											<td>Machine O</td>
+											<td>Machine for mass production of car parts.</td>
+											<td>OFF</td>
+											<!-- Status OFF -->
+										</tr>
+										<tr>
+											<td>M16</td>
+											<td>Machine P</td>
+											<td>
+												High-precision machine for electronics manufacturing.
+											</td>
+											<td>ON</td>
+											<!-- Status ON -->
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<footer>
+							© Multiquadrant Industrial Controls (I) Pvt. Ltd. 2025
+						</footer>
+					</div>
+					<!-- <div class="temperory" style="display: none;"><iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/zw9GjcWpUmY?si=Zbx93DwyuC-Vwslt" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/zw9GjcWpUmY?si=Zbx93DwyuC-Vwslt"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div> -->
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var loader = document.getElementById("preloader");
+
+			window.addEventListener("load", function () {
+				setTimeout(function () {
+					loader.style.display = "none";
+				}, 5000);
+			});
+		</script>
+
+		<script>
+			async function fetchMachineStatus() {
+				try {
+					const response = await fetch("/dashboard/machineStatus");
+					const result = await response.json();
+					//console.log("Fetched machine status:\n", data);
+
+					if (!Array.isArray(result.data)) {
+						console.warn("Invalid or missing data:", result);
+						updateTable([]); // fallback to empty
+						return;
+					}
+					updateTable(result.data);  // 👈 FIXED: pass actual array, not the whole object
+					//updateTable(data);
+				} catch (error) {
+					console.error("Error fetching machine status:", error);
+				}
+			}
+
+			function updateTable(data) {
+				const tableBody = document.querySelector(".machine-table tbody");
+				tableBody.innerHTML = ""; // Clear existing rows
+
+				const totalMachines = 16; // Adjust this based on your total machines
+				const machineData = {};
+
+				// Store data in an object for easy lookup
+				data.forEach((machine) => {
+					machineData[machine.ID] = {
+						Timestamp: machine.Timestamp,
+						Event: machine.Event,
+						name:machine.machine_id
+					};
+				});
+
+				// Create rows in sorted order
+				for (let i = 1; i <= totalMachines; i++) {
+					const row = document.createElement("tr");
+					const machineName = machineData[i]?.name || `Machine ${i}`;
+
+
+
+					let statusText, statusColor;
+					if (machineData[i]) {
+						statusText = machineData[i].Event;
+						statusColor = statusText === "ON" ? "green" : "red"; // ON = Green, OFF = Red
+					} else {
+						statusText = "Not Available";
+						statusColor = "gray"; // Missing machines = Gray
+					}
+
+					row.innerHTML = `
+                <td>${i}</td>
+                <td>${machineName}</td>
+                <td>${machineData[i] ? machineData[i].Timestamp : "--"}</td>
+                <td style="color: ${statusColor}; font-weight: bold;">${statusText}</td>
+            `;
+
+					tableBody.appendChild(row);
+				}
+			}
+
+			// Fetch data every 10 seconds
+			setInterval(fetchMachineStatus, 1000);
+
+			// Initial fetch on page load
+			fetchMachineStatus();
+			// ---------------status update home page-------------------
+		</script>
+		<script src="/script.js"></script>
+	</body>
+</html>

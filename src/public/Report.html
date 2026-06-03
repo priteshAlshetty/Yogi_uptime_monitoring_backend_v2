@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiquadrant</title>
+    <link rel="icon" href="/img/Logo_Multiquadrant.jpg" type="image/png">
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <div id="preloader"></div>
+<!-- logout button -->
+    <div class="confirmLogOut">
+        <div class="LogOutContainer">
+            <div class="warningMsgLogOut">
+                <h3>Are You Sure want to LogOut?</h3>
+            </div>
+            <div class="Log-buttons">
+                <button class="LogOutBtn" id="logout">OK</button>
+                <button class="LogOutBtn-Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+<!-- popup -->
+    <div id="popupMsg" class="popupMsg">
+        <div class="popup">
+            <div class="popbox">
+                <div class="warningMsg">
+                    <h3>Please Select Valid Date</h3>
+                </div>
+                <div class="okbtn"><button class="btn okclickbtn" id="dateErrorOk">Ok</button></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- -------Getting data popup-------------- -->
+    <div class="getting_data_popup" id="getting_data_popup">
+        <div class="popup_getting_data">
+
+            <div class="getting_Data_text">
+                <h3>Getting Data..</h3>
+            </div>
+            <div class="Load_animation"><img src="/img/Animation_searching_pages.gif" style="width: 250px;"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- -------Getting data popup-------------- -->
+
+
+    </div>
+    </div>
+
+    <div class="homepage">
+        <div class="main">
+            <!-- left navbar -->
+            <div class="left-dash">
+                <div class="left-first-sec">
+                
+                    <div class="left-heading">
+                        <h2>Yogi Kanthika</h2>
+                    </div>
+                    <div class="profile"><img src="/img/user.png" alt=""></div>
+                    <div profile-username>John Doe</div>
+                </div>
+                <div class="left-middle-sec">
+                    <ul>
+                        <li id="summary">
+                            <img src="/img/icon/house-solid.svg" alt="">
+                            <span>Summary</span>
+                        </li>
+                        <li id="uptime-downtime" class="active">
+                            <img src="/img/icon/calendar-days-regular.svg" alt="">
+                            <span>Uptime/Downtime</span>
+                        </li>
+                        <li>
+                            <img src="/img/icon/clock-regular.svg" alt="">
+                            <span>Uptime</span>
+                        </li>
+                        <li>
+                            <img src="/img/icon/hourglass-regular.svg" alt="">
+                            <span>Downtime</span>
+                        </li>
+                        <li>
+                            <img src="/img/icon/gear-solid.svg" alt="">
+                            <span>Settings</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="left-last-sec">
+                    <ul>
+                        <!-- <li><img src="/img/icon/arrow-right-from-bracket-solid.svg" alt=""> Logout</li> -->
+                        <!-- <li><a href="index.html"><img src="/img/icon/arrow-right-from-bracket-solid.svg" alt=""> Logout</a></li> -->
+                        <li id="primaryLogout"><img src="/img/icon/arrow-right-from-bracket-solid.svg" alt=""> Logout
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="Right-dash">
+                <div-right-top>
+                    <h1>Uptime/Downtime Report</h1>
+                </div-right-top>
+
+
+                <div class="getDetails">
+                    <input type="date" placeholder="Enter Details" id="getdate">
+                    <button class="btn2" onclick=getData()>Get Data</button>
+                    <button class="btn2" id="report_btn">Generate Excel Report</button> 
+                </div>
+
+
+
+                <!-- ----------------------------------------------------------test code--------------------------- -->
+                <div class="table-container" id="table-container">
+                    <div id="download_report_div"></div>
+
+                    <table class="status-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Uptime</th>
+                                <th>Downtime</th>
+                                <th>Total</th>
+                                <th>Downtime (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- ----------------------------------------------------------test code--------------------------- -->
+
+
+
+                <div>
+                    <footer>
+                        © Multiquadrant Industrial Controls (I) Pvt. Ltd. 2025
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <style>
+        /* Table styling */
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .status-table th,
+        .status-table td {
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .status-table th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .status-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .status-table tr:hover {
+            background-color: #ddd;
+        }
+
+        .status-table td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Style for the Uptime, Downtime, Total, Spare columns */
+        .status-table td:nth-child(3),
+        .status-table td:nth-child(4),
+        .status-table td:nth-child(5),
+        .status-table td:nth-child(6) {
+            /* text-align: center;
+            font-weight: bold; */
+            color: rgb(37, 36, 36);
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+        /* Responsive table for small screens */
+        @media screen and (max-width: 768px) {
+
+            .status-table th,
+            .status-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        #download_report_div {
+            width: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: flex-end;
+        }
+
+        .download-report-btn {
+            margin-block: 10px;
+            padding: 8px 16px;
+            background-color: #148fe0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+
+        }
+
+        .download-report-btn:hover {
+            background-color: #3d91f1;
+        }
+    </style>
+    <style>
+
+        #report_btn{
+            margin-left:5rem;
+        }
+    </style>
+
+
+
+
+
+
+
+    <script>   var loader = document.getElementById("preloader");
+        window.addEventListener("load", function () {
+            loader.style.display = "none"
+        })</script>
+
+
+
+    <script>
+
+
+
+        function getData() {
+            // Get the value of the input date field
+            const inputDate = document.getElementById("getdate");
+            const dateErrorOk = document.getElementById("dateErrorOk");
+            const popupMsg = document.getElementById("popupMsg");
+            const tablecontainer = document.getElementById("table-container");
+            const ReportDate = inputDate.value;
+            const getting_data_popup = document.getElementById("getting_data_popup");
+            const download_report_div = document.getElementById("download_report_div");
+
+            dateErrorOk.addEventListener("click", () => { popupMsg.style.display = "none"; })
+            // Check if the ReportDate is empty
+            if (!ReportDate) {
+                // If the date is empty, alert the user and stop the function execution
+                popupMsg.style.display = "flex";
+                return;
+            }
+
+            // Proceed with the data fetch and table update
+            getting_data_popup.style.display = "flex";
+
+            // fetch('/dummyjson.json')
+            fetch('/dashboard/getUptimeData', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ dateString: ReportDate })
+})
+
+
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => updateTable(data))   // Pass the data to the updateTable function
+                .catch(error => console.error('Error loading JSON:', error));
+
+            // Function to update the table with machine data
+            function updateTable(machines) {
+                const tableBody = document.querySelector('.status-table tbody');  // Target table body
+                tableBody.innerHTML = '';  // Clear the existing table rows
+
+                const machinestatusdiv = document.getElementsByClassName("table-container")[0];  // Select the first element from the collection
+
+                // ----------------------remove if exist date-----------------------
+                const existingDateElement = machinestatusdiv.querySelector('h3');
+                if (existingDateElement) {
+                    existingDateElement.remove();
+                }
+
+                // ----------------------remove if exist date-----------------------
+
+                // Check if "Download Report" button already exists
+                let downloadButton = machinestatusdiv.querySelector(".download-report-btn");
+                if (!downloadButton) {
+                    // Create a new "Download Report" button if it doesn't exist
+                    downloadButton = document.createElement("button");
+                    downloadButton.textContent = "Download Report";
+                    downloadButton.classList.add("download-report-btn");
+
+                    // Add event listener for download functionality
+                    downloadButton.addEventListener("click", async () => {
+                        const { jsPDF } = window.jspdf;
+
+                        // Temporarily hide the download button
+                        downloadButton.style.display = 'none';
+
+                        // Capture the target div (the section with the table)
+                        const section = machinestatusdiv; // Assuming machinestatusdiv contains the table you want to capture
+                        const canvas = await html2canvas(section, {
+                            scale: 1.5, // Lower scale for smaller resolution and file size
+                            useCORS: true,
+                            backgroundColor: null,
+                        });
+
+                        const imgData = canvas.toDataURL("image/jpeg", 0.6); // Convert to JPEG with 60% quality for compression
+
+                        // Set the dimensions for A4 paper size (in px, based on 72 DPI)
+                        const a4Width = 595;  // A4 width in px
+                        const a4Height = 842; // A4 height in px
+
+                        // Create the PDF with A4 size
+                        const pdf = new jsPDF({
+                            orientation: "portrait", // You can change to 'landscape' if needed
+                            unit: "px", // Using pixels as unit
+                            format: [a4Width, a4Height],
+                        });
+
+                        // Calculate the scale factor to fit the content into A4
+                        const imgWidth = canvas.width;
+                        const imgHeight = canvas.height;
+
+                        // Calculate scaling factor
+                        const scale = Math.min(a4Width / imgWidth, a4Height / imgHeight);
+
+                        // Calculate the width and height based on scaling factor
+                        const scaledWidth = imgWidth * scale;
+                        const scaledHeight = imgHeight * scale;
+
+                        // Add the image to the PDF (scaling it to fit A4 size)
+                        pdf.addImage(imgData, "JPEG", 0, 0, scaledWidth, scaledHeight);
+
+                        // Save the PDF
+                        pdf.save(`Report of Date- ${ReportDate}.pdf`);
+
+                        // Make the button visible again after PDF is generated
+                        downloadButton.style.display = 'block';
+                    });
+
+                    // Insert the "Download Report" button at the top of the table container
+                    download_report_div.append(downloadButton);
+                }
+
+                // Create a new h3 element and set its content
+                const dateElement = document.createElement("h3");
+                dateElement.textContent = `Machine Status for Date : ${ReportDate}`;
+
+                // Append the h3 element to the machinestatusdiv
+                machinestatusdiv.prepend(dateElement);  // Use prepend to add it at the top
+
+                // Loop through machines data to update the table
+                machines.forEach(machine => {
+                    const row = document.createElement('tr');  // Create a new table row
+
+                    // Insert table data
+                    row.innerHTML = `
+                <td>${machine.id}</td>
+                <td>${machine.name}</td>
+                <td>${machine.uptime}</td>
+                <td>${machine.downtime}</td>
+                <td>${machine.total_time}</td>
+                <td>${machine.percentage_down}</td>
+            `;
+
+                    // Append the row to the table
+                    tableBody.appendChild(row);
+                });
+
+                // Set timeout to hide the popup after 1 seconds
+                setTimeout(() => {
+
+                    getting_data_popup.style.display = "none";
+                    tablecontainer.style.display = "block";
+
+                }, 2000);  // 1000ms = 1 seconds
+            }
+        }
+
+
+
+
+// function testconsole(){
+//          const inputDate = document.getElementById("getdate");
+//         //     const dateErrorOk = document.getElementById("dateErrorOk");
+//         //     const popupMsg = document.getElementById("popupMsg");
+//         //     const tablecontainer = document.getElementById("table-container");
+//             const ReportDate = inputDate.value;
+//         //     const getting_data_popup = document.getElementById("getting_data_popup");
+//         //     const download_report_div = document.getElementById("download_report_div");
+//         fetch('/dashboard/getUptimeData', {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ dateString: ReportDate })
+// })
+// .then(response => response.json())
+// .then(data => {
+//     console.log("Fetched Data:", data);
+// })
+// .catch(error => console.error('Error fetching data:', error));
+// }
+
+
+    </script>
+    <script>
+        let reportButton = document.getElementById("report_btn");
+        reportButton.addEventListener("click", async () => {
+        const inputDate = document.getElementById("getdate");
+        fetch('/dashboard/uptime/report', {
+            method : 'POST',
+            headers : {'Content-Type' : 'application/json'},
+            body : JSON.stringify({date : inputDate.value})
+        }).then((data=>data.json() )).then((result)=>{
+            console.log(result);
+            alert("Report File Downloaded at:: \n", result.filepath);
+        }).catch((err)=>{
+            console.log(err);
+            alert(err);
+        })
+
+        });
+    </script>
+    <script src="/script.js"></script>
+</body>
+
+</html>
