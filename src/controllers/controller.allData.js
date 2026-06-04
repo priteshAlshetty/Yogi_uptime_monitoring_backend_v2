@@ -1,5 +1,5 @@
 const db = require('../db');
-
+const { machineList } = require('../public/machine_list');
 //convert decimal to hours: HH:MM format
 function convertToClockHr(uptime) {
     const hours = Math.floor(uptime);
@@ -18,19 +18,39 @@ async function getDailyData(date) {
             WHERE DATE(dateTime) = ?
             GROUP BY machine_id;`, [date]
         );
+        const allMachines = machineList();
 
-        if (!rows1.length) return null;
+        const uptimeMap = new Map(
+            rows1.map(row => [row.machine_id, row])
+        );
+        const dailyData = allMachines.map(machineId => {
 
-        const dailyData = rows1.map(item => {
-            const uptime_min = Math.floor(item.total_uptime_sec / 60);
+            const item = uptimeMap.get(machineId);
+
+            const total_uptime_sec = item ? item.total_uptime_sec : 0;
+
+            const uptime_min = Math.floor(total_uptime_sec / 60);
             const uptime_hr = parseFloat((uptime_min / 60).toFixed(2));
             const total_hr = convertToClockHr(uptime_hr);
 
+            // if (!rows1.length) return null;
+
+            // const dailyData = rows1.map(item => {
+            //     const uptime_min = Math.floor(item.total_uptime_sec / 60);
+            //     const uptime_hr = parseFloat((uptime_min / 60).toFixed(2));
+            //     const total_hr = convertToClockHr(uptime_hr);
+
+            // return {
+            //     Machine_Id: item.machine_id,
+            //     Uptime_min: uptime_min,
+            //     Uptime_hr: uptime_hr,
+            //     Total_hr: total_hr,
+            // };
             return {
-                Machine_Id: item.machine_id,
+                Machine_Id: machineId,
                 Uptime_min: uptime_min,
                 Uptime_hr: uptime_hr,
-                Total_hr: total_hr,
+                Total_hr: total_hr
             };
         });
 
@@ -48,17 +68,17 @@ async function getDailyData(date) {
 //Daily data for Excel report
 async function getReportByDate(date) {
     try {
-
+        const allMachines = machineList();
         let query = `
         SELECT 
     machine_id,
-	 ROUND(SUM(uptime_sec),3 ) as total_uptime_sec,
+	ROUND(SUM(uptime_sec),3 ) as total_uptime_sec,
     ROUND(SUM(uptime_hr), 3) AS total_uptime_hr,
     ROUND(
         SUM(
             CASE
                 WHEN TIME(dateTime) >= '08:00:00'
-                 AND TIME(dateTime) < '16:00:00'
+                    AND TIME(dateTime) < '16:00:00'
                 THEN uptime_hr
                 ELSE 0
             END
@@ -69,7 +89,7 @@ async function getReportByDate(date) {
         8 - SUM(
             CASE
                 WHEN TIME(dateTime) >= '08:00:00'
-                 AND TIME(dateTime) < '16:00:00'
+                    AND TIME(dateTime) < '16:00:00'
                 THEN uptime_hr
                 ELSE 0
             END
@@ -80,7 +100,7 @@ async function getReportByDate(date) {
         SUM(
             CASE
                 WHEN TIME(dateTime) >= '16:00:00'
-                 AND TIME(dateTime) <= '23:59:59'
+                    AND TIME(dateTime) <= '23:59:59'
                 THEN uptime_hr
                 ELSE 0
             END
@@ -91,7 +111,7 @@ async function getReportByDate(date) {
         8 - SUM(
             CASE
                 WHEN TIME(dateTime) >= '16:00:00'
-                 AND TIME(dateTime) <= '23:59:59'
+                    AND TIME(dateTime) <= '23:59:59'
                 THEN uptime_hr
                 ELSE 0
             END
@@ -104,25 +124,59 @@ FROM uptime
 WHERE DATE(dateTime) = ?
 GROUP BY machine_id;`;
 
-        let old_query = `SELECT machine_id, 
-                SUM(uptime_sec) as total_uptime_sec,
-                SUM(uptime_hr) as total_uptime_hr
-            FROM uptime
-            WHERE DATE(dateTime) = ?
-            GROUP BY machine_id;`;
-
         const [rows1] = await db.query(query, [date]
         );
 
-        if (!rows1.length) return null;
+        // if (!rows1.length) return null;
 
-        const formatted = rows1.map(item => {
+        // const formatted = rows1.map(item => {
+        //     const uptime_min = Math.floor(item.total_uptime_sec / 60);
+        //     const uptime_hr = parseFloat((uptime_min / 60).toFixed(2));
+        //     const total_hr = convertToClockHr(uptime_hr);
+
+        //     return {
+        //         Machine_Id: item.machine_id,
+        //         Uptime_min: uptime_min,
+        //         Uptime_hr: uptime_hr,
+        //         Shift1_Uptime_hr: convertToClockHr(item.shift1_uptime_hr),
+        //         Shift1_Downtime_hr: convertToClockHr(item.shift1_downtime_hr),
+        //         Shift2_Uptime_hr: convertToClockHr(item.shift2_uptime_hr),
+        //         Shift2_Downtime_hr: convertToClockHr(item.shift2_downtime_hr),
+        //         Total_Downtime_hr: convertToClockHr(item.total_downtime_hr),
+        //         Total_hr: convertToClockHr(item.total_uptime_hr)
+        //     };
+        // });
+        // console.dir(formatted, { depth: null, colors: true });
+
+        // Create lookup map
+        const uptimeMap = new Map(
+            rows1.map(row => [row.machine_id, row])
+        );
+
+        const formatted = allMachines.map(machineId => {
+
+            const item = uptimeMap.get(machineId);
+
+            // Machine not present in uptime table for this date
+            if (!item) {
+                return {
+                    Machine_Id: machineId,
+                    Uptime_min: 0,
+                    Uptime_hr: 0,
+                    Shift1_Uptime_hr: "00:00",
+                    Shift1_Downtime_hr: "08:00",
+                    Shift2_Uptime_hr: "00:00",
+                    Shift2_Downtime_hr: "08:00",
+                    Total_Downtime_hr: "16:00",
+                    Total_hr: "00:00"
+                };
+            }
+
             const uptime_min = Math.floor(item.total_uptime_sec / 60);
             const uptime_hr = parseFloat((uptime_min / 60).toFixed(2));
-            const total_hr = convertToClockHr(uptime_hr);
 
             return {
-                Machine_Id: item.machine_id,
+                Machine_Id: machineId,
                 Uptime_min: uptime_min,
                 Uptime_hr: uptime_hr,
                 Shift1_Uptime_hr: convertToClockHr(item.shift1_uptime_hr),
@@ -133,7 +187,7 @@ GROUP BY machine_id;`;
                 Total_hr: convertToClockHr(item.total_uptime_hr)
             };
         });
-        // console.dir(formatted, { depth: null, colors: true });
+
         return formatted;
     } catch (error) {
         console.error(`[getUptimeByDate] Error for date: ${date}`, date);
@@ -152,6 +206,12 @@ async function getWeeklyData(startDate, endDate) {
         const Total = {};
         let current = new Date(startDate);
         const last = new Date(endDate)
+        const allMachines = machineList();
+
+        // Initialize total for all machines
+        allMachines.forEach(machine => {
+            Total[machine] = 0;
+        });
 
         while (current <= last) {
             const yyyy = current.getFullYear();
@@ -160,28 +220,45 @@ async function getWeeklyData(startDate, endDate) {
             const date = `${yyyy}-${mm}-${dd}`;
 
             const [rows] = await db.query(
-                `SELECT machine_id, ROUND(SUM(uptime_hr), 2) as total_uptime_hr FROM uptime
+                `SELECT machine_id, ROUND(SUM(uptime_hr), 3) as total_uptime_hr 
+                FROM uptime
             WHERE DATE(dateTime) = ?
             GROUP BY machine_id`, [date]
             );
 
-            weeklyData[date] = rows.reduce((acc, row) => {
-                acc[row.machine_id] = row.total_uptime_hr;
+            //create lookup map
+            const rowMap = new Map(
+                rows.map(row => [row.machine_id, row.total_uptime_hr])
+            );
 
-                if (!Total[row.machine_id]) {
-                    Total[row.machine_id] = 0;
-                }
-                Total[row.machine_id] += row.total_uptime_hr;
+            weeklyData[date] = {};
 
-                return acc;
-            }, {});
+            allMachines.forEach(machine => {
+                const uptime = rowMap.get(machine) || 0;
+                weeklyData[date][machine] = uptime;
+                Total[machine] += uptime;
+            });
+
+            current.setDate(current.getDate() + 1);
+
+            // weeklyData[date] = rows.reduce((acc, row) => {
+            //     acc[row.machine_id] = row.total_uptime_hr;
+
+            //     if (!Total[row.machine_id]) {
+            //         Total[row.machine_id] = 0;
+            //     }
+            //     Total[row.machine_id] += row.total_uptime_hr;
+
+            //     return acc;
+            // }, {});
 
 
-            current.setDate(current.getDate() + 1)
+            // current.setDate(current.getDate() + 1)
         }
 
+        // Round totals to 3 decimal places
         for (const machine in Total) {
-            Total[machine] = parseFloat(Total[machine].toFixed(2));
+            Total[machine] = parseFloat(Total[machine].toFixed(3));
         }
         weeklyData['Total'] = Total;
 
@@ -201,6 +278,7 @@ async function getWeeklyData(startDate, endDate) {
 async function getReportByWeek(startDate, endDate) {
 
     try {
+        const allMachines = machineList();
         const [rows] = await db.query(
             `SELECT
                 machine_id,
@@ -230,7 +308,8 @@ async function getReportByWeek(startDate, endDate) {
 
         const allDates = getDateRange(startDate, endDate);
         //get all unique machine id
-        const machines = [...new Set(rows.map(r => r.machine_id))];
+        // const machines = [...new Set(rows.map(r => r.machine_id))];
+        const machines = allMachines;
 
         // Create a lookup map for quick access { machine_id: { date: uptime } }
         const uptimeMap = {};
@@ -269,6 +348,67 @@ async function getReportByWeek(startDate, endDate) {
 };
 
 // Monthly data for API response
+//old version
+// async function getMonthlyData(month) {
+//     try {
+//         let [yyyy, mm] = month.split("-");
+//         yyyy = Number(yyyy);
+//         mm = Number(mm);
+
+//         const [raw_data] = await db.query(
+//             `SELECT  machine_id, DATE_FORMAT(dateTime, "%Y-%m-%d") as Date, ROUND(SUM(uptime_hr), 2) as total_uptime_hr
+//         FROM uptime
+//         WHERE YEAR(dateTime) = ? AND MONTH(dateTime) = ?
+//         GROUP BY machine_id, Date
+//         ORDER BY Date;`, [yyyy, mm]
+//         );
+//         const monthlyData = {};
+//         const machineSet = new Set();
+//         const machineTotals = {};
+
+
+//         raw_data.forEach(entry => {
+//             const { machine_id, Date, total_uptime_hr } = entry;
+
+//             if (!monthlyData[Date]) {
+//                 monthlyData[Date] = {};
+//             }
+//             //save uptime
+//             monthlyData[Date][machine_id] = total_uptime_hr ?? 0;
+//             //add machine to set
+//             machineSet.add(machine_id);
+
+//             //track totals
+//             if (!machineTotals[machine_id]) {
+//                 machineTotals[machine_id] = 0;
+//             }
+//             machineTotals[machine_id] += total_uptime_hr ?? 0;
+
+//         });
+
+//         //add total row
+//         const totalRow = {};
+//         for (const machine of machineSet) {
+//             const total = machineTotals[machine] ?? 0;
+//             totalRow[machine] = convertToClockHr(total)
+//         };
+
+//         monthlyData['Total'] = totalRow;
+//         //console.log(monthlyData);
+//         return { monthlyData };
+
+//     } catch (error) {
+//         console.error(`[getMonthlyData] Error for month: ${mm}`);
+//         throw {
+//             location: `controller.getMachineStatus.js --> getMonthlyData()`,
+//             message: error.message,
+//             stack: error.stack
+//         };
+
+//     }
+
+// };
+//new version
 async function getMonthlyData(month) {
     try {
         let [yyyy, mm] = month.split("-");
@@ -276,58 +416,78 @@ async function getMonthlyData(month) {
         mm = Number(mm);
 
         const [raw_data] = await db.query(
-            `SELECT  machine_id, DATE_FORMAT(dateTime, "%Y-%m-%d") as Date, ROUND(SUM(uptime_hr), 2) as total_uptime_hr
-        FROM uptime
-        WHERE YEAR(dateTime) = ? AND MONTH(dateTime) = ?
-        GROUP BY machine_id, Date
-        ORDER BY Date;`, [yyyy, mm]
+            `SELECT machine_id,
+                    DATE_FORMAT(dateTime, "%Y-%m-%d") AS Date,
+                    ROUND(SUM(uptime_hr), 3) AS total_uptime_hr
+            FROM uptime
+            WHERE YEAR(dateTime) = ?
+                AND MONTH(dateTime) = ?
+            GROUP BY machine_id, Date
+            ORDER BY Date`,
+            [yyyy, mm]
         );
+
         const monthlyData = {};
-        const machineSet = new Set();
         const machineTotals = {};
+        const allMachines = machineList();
 
-
-        raw_data.forEach(entry => {
-            const { machine_id, Date, total_uptime_hr } = entry;
-
-            if (!monthlyData[Date]) {
-                monthlyData[Date] = {};
-            }
-            //save uptime
-            monthlyData[Date][machine_id] = total_uptime_hr ?? 0;
-            //add machine to set
-            machineSet.add(machine_id);
-
-            //track totals
-            if (!machineTotals[machine_id]) {
-                machineTotals[machine_id] = 0;
-            }
-            machineTotals[machine_id] += total_uptime_hr ?? 0;
-
+        // Initialize totals
+        allMachines.forEach(machine => {
+            machineTotals[machine] = 0;
         });
 
-        //add total row
-        const totalRow = {};
-        for (const machine of machineSet) {
-            const total = machineTotals[machine] ?? 0;
-            totalRow[machine] = convertToClockHr(total)
-        };
+        // Get number of days in month
+        const daysInMonth = new Date(yyyy, mm, 0).getDate();
 
-        monthlyData['Total'] = totalRow;
-        //console.log(monthlyData);
+        // Create all dates and initialize all machines with 0
+        for (let day = 1; day <= daysInMonth; day++) {
+
+            const date =
+                `${yyyy}-${String(mm).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+            monthlyData[date] = {};
+
+            allMachines.forEach(machine => {
+                monthlyData[date][machine] = 0;
+            });
+        }
+
+        // Fill actual values
+        raw_data.forEach(entry => {
+
+            const {
+                machine_id,
+                Date,
+                total_uptime_hr
+            } = entry;
+
+            monthlyData[Date][machine_id] = total_uptime_hr ?? 0;
+
+            machineTotals[machine_id] += total_uptime_hr ?? 0;
+        });
+
+        // Build total row
+        const totalRow = {};
+
+        allMachines.forEach(machine => {
+            totalRow[machine] = convertToClockHr(
+                parseFloat(machineTotals[machine].toFixed(2))
+            );
+        });
+
+        monthlyData.Total = totalRow;
+
         return { monthlyData };
 
     } catch (error) {
-        console.error(`[getMonthlyData] Error for month: ${mm}`);
+        console.error(`[getMonthlyData] Error for month: ${month}`);
         throw {
-            location: `controller.getMachineStatus.js --> getMonthlyData()`,
+            location: 'controller.getMachineStatus.js --> getMonthlyData()',
             message: error.message,
             stack: error.stack
         };
-
     }
-
-};
+}
 
 // Monthly data for Excel report
 async function getReportbyMonth(month) {
@@ -408,6 +568,7 @@ async function getReportbyMonth(month) {
 // Yearly data for API response
 async function getYearlyData(year) {
     try {
+        const allMachines = machineList();
         const [rows] = await db.query(
             `SELECT machine_id, 
                 DATE_FORMAT(dateTime, '%Y') AS Year, 
@@ -418,22 +579,28 @@ async function getYearlyData(year) {
         GROUP BY machine_id, Year
         ORDER BY machine_id;`, [year]
         );
+        // Create lookup map
+        const uptimeMap = new Map(
+            rows.map(row => [row.machine_id, row])
+        );
 
-        if (!rows || rows.length === 0) {
-            console.warn(`No uptime data found for year: ${year}`);
-            return [];
-        }
-        const yearlyData = rows.map((item) => {
-            const Total_Hr = convertToClockHr(item.uptime_hr);
+        const yearlyData = allMachines.map(machineId => {
+
+            const item = uptimeMap.get(machineId);
+
+            const uptime_min = item?.uptime_min ?? 0;
+            const uptime_hr = item?.uptime_hr ?? 0;
 
             return {
-                Machine_Name: item.machine_id,
-                Year: item.Year,
-                Uptime_Min: item.uptime_min,
-                Uptime_Hr: item.uptime_hr,
-                Total_Hr: Total_Hr
-            }
-        })
+                Machine_Name: machineId,
+                Year: String(year),
+                Uptime_Min: uptime_min,
+                Uptime_Hr: uptime_hr,
+                Total_Hr: convertToClockHr(uptime_hr)
+            };
+        });
+
+
         return { yearlyData };
 
     } catch (error) {

@@ -116,7 +116,6 @@ async function createExcelDaily(date) {
         ['A', 'B', 'C'].forEach(col => {
           worksheet.getCell(`${col}${rowIndex}`).font = {
             bold: true,
-            size: 14,
             color: { argb: 'FF000000' }
           };
         });
@@ -124,7 +123,6 @@ async function createExcelDaily(date) {
         ['E', 'G', 'I'].forEach(col => {
           worksheet.getCell(`${col}${rowIndex}`).font = {
             bold: true,
-            size: 14,
             color: { argb: 'FFA52A2A' }
           };
         });
@@ -133,7 +131,6 @@ async function createExcelDaily(date) {
         ['D', 'F', 'H'].forEach(col => {
           worksheet.getCell(`${col}${rowIndex}`).font = {
             bold: true,
-            size: 14,
             color: { argb: 'FF006400' }
           };
         });
