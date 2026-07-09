@@ -67,6 +67,7 @@ async function getDailyData(date) {
 
 //Daily data for Excel report
 async function getReportByDate(date) {
+    const working_hr = await getWorkHourByDate(date);
     try {
         const allMachines = machineList();
         let query = `
@@ -118,13 +119,13 @@ async function getReportByDate(date) {
         ), 2
     ) AS shift2_downtime_hr,
     
-    ROUND(16 - SUM(uptime_hr), 3) AS total_downtime_hr
+    ROUND(? - SUM(uptime_hr), 3) AS total_downtime_hr
 
 FROM uptime
 WHERE DATE(dateTime) = ?
 GROUP BY machine_id;`;
 
-        const [rows1] = await db.query(query, [date]
+        const [rows1] = await db.query(query, [working_hr, date]
         );
 
         // if (!rows1.length) return null;
@@ -657,6 +658,60 @@ async function getReportByYear(year) {
     }
 }
 
+
+async function getWorkHourByDate(date) {
+    const [rows] = await db.query(` SELECT hours from working_hr WHERE date = ?`, [date]);
+    if (rows.length > 0) {
+        return rows[0].hours;
+    } else {
+        return 16;
+    }
+}
+
+async function setWorkHourByDate(date, hours) {
+    const [rows] = await db.query(`INSERT INTO working_hr (date, hours) VALUES (?, ?) ON DUPLICATE KEY UPDATE hours = ?`, [date, hours, hours]);
+
+    if (rows.affectedRows > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+async function getWorkHourByMonth(month) {
+
+    try {
+        // Input month format: YYYY-MM
+        // Generated date format: YYYY-MM-DD
+
+        const [year, monthNumber] = month.split('-').map(Number);
+
+        const daysInMonth = new Date(year, monthNumber, 0).getDate();
+
+        const monthlyData = [];
+
+        for (let day = 1; day <= daysInMonth; day++) {
+
+            const date = `${year}-${String(monthNumber).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+            const workingHr = await getWorkHourByDate(date);
+
+            monthlyData.push({
+                date,
+                working_hr: workingHr
+            });
+        }
+
+        return monthlyData;
+
+    } catch (error) {
+        console.error('Error getting monthly working hours:', error);
+        throw error;
+    }
+
+}
 module.exports = {
     getDailyData,
     getReportByDate,
@@ -666,6 +721,8 @@ module.exports = {
     getReportbyMonth,
     getYearlyData,
     getReportByYear,
+    getWorkHourByMonth,
+    setWorkHourByDate
 
 };
 

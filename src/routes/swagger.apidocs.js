@@ -207,3 +207,232 @@
  *                   type: string
  *                   example: "At try-catch block of route /uptime/getdata"
  */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Work Hours
+ *     description: APIs for retrieving and updating daily work hours
+ *
+ * /dashboard/getworkhoursbymonth:
+ *   get:
+ *     summary: Get work hours for a specific month
+ *     description: |
+ *       Retrieves the configured work hours for every date in the specified month.
+ *
+ *       The month must be provided in `YYYY-MM` format.
+ *
+ *       Example:
+ *       - `2026-07` for July 2026
+ *       - `2026-12` for December 2026
+ *
+ *       The API returns the work-hour configuration for each date of the requested month.
+ *     tags:
+ *       - Work Hours
+ *     parameters:
+ *       - in: query
+ *         name: month
+ *         required: true
+ *         description: Month for which work-hour data is required, in YYYY-MM format
+ *         schema:
+ *           type: string
+ *           pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+ *           example: "2026-07"
+ *     responses:
+ *       200:
+ *         description: Work hours retrieved successfully for the requested month
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   date:
+ *                     type: string
+ *                     format: date
+ *                     description: Date in YYYY-MM-DD format
+ *                     example: "2026-07-01"
+ *                   hours:
+ *                     type: number
+ *                     format: float
+ *                     description: Configured work hours for the date
+ *                     example: 8
+ *             example:
+ *               - date: "2026-07-01"
+ *                 hours: 8
+ *               - date: "2026-07-02"
+ *                 hours: 8
+ *               - date: "2026-07-03"
+ *                 hours: 10
+ *
+ *       400:
+ *         description: Missing required month query parameter
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errMsg:
+ *                   type: string
+ *                   description: Error message describing the missing parameter
+ *             example:
+ *               errMsg: "Missing required parameter: month"
+ *
+ *       404:
+ *         description: No work-hour data found for the requested month
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errMsg:
+ *                   type: string
+ *                   description: Error message indicating that no data was found
+ *             example:
+ *               errMsg: "No work hours found for month: 2026-07"
+ *
+ *       500:
+ *         description: Internal server error while retrieving work-hour data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: General error category
+ *                 message:
+ *                   type: string
+ *                   description: Detailed error message
+ *                 stack:
+ *                   type: string
+ *                   description: Error stack trace
+ *                 location:
+ *                   type: string
+ *                   description: API route where the error occurred
+ *             example:
+ *               error: "Internal server error"
+ *               message: "Database connection failed"
+ *               stack: "Error: Database connection failed..."
+ *               location: "/getworkhoursbymonth"
+ *
+ * /dashboard/setworkhoursbydate:
+ *   post:
+ *     summary: Set work hours for a specific date
+ *     description: |
+ *       Sets or updates the configured work hours for a specific date.
+ *
+ *       The request body must contain:
+ *       - `date` in `YYYY-MM-DD` format
+ *       - `hours` representing the number of work hours for that date
+ *
+ *       This API can be used to configure different work hours for regular
+ *       working days, weekends, holidays, shutdown days, or overtime days.
+ *     tags:
+ *       - Work Hours
+ *     requestBody:
+ *       required: true
+ *       description: Date and corresponding work hours to be configured
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - date
+ *               - hours
+ *             properties:
+ *               date:
+ *                 type: string
+ *                 format: date
+ *                 description: Date for which work hours should be set, in YYYY-MM-DD format
+ *                 example: "2026-07-09"
+ *               hours:
+ *                 type: number
+ *                 format: float
+ *                 minimum: 0
+ *                 maximum: 24
+ *                 description: Number of work hours to configure for the specified date
+ *                 example: 8
+ *           examples:
+ *             regularWorkingDay:
+ *               summary: Regular 8-hour working day
+ *               value:
+ *                 date: "2026-07-09"
+ *                 hours: 8
+ *             overtimeDay:
+ *               summary: 12-hour working day
+ *               value:
+ *                 date: "2026-07-10"
+ *                 hours: 12
+ *             holiday:
+ *               summary: Holiday or shutdown day
+ *               value:
+ *                 date: "2026-07-11"
+ *                 hours: 0
+ *
+ *     responses:
+ *       200:
+ *         description: Work hours set successfully for the specified date
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message
+ *             example:
+ *               message: "Work hours set successfully for date: 2026-07-09"
+ *
+ *       400:
+ *         description: Missing required date or hours parameter
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errMsg:
+ *                   type: string
+ *                   description: Error message describing the missing parameters
+ *             example:
+ *               errMsg: "Missing required parameters: date and hours"
+ *
+ *       404:
+ *         description: Failed to set work hours for the specified date
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errMsg:
+ *                   type: string
+ *                   description: Error message indicating that the operation failed
+ *             example:
+ *               errMsg: "Failed to set work hours for date: 2026-07-09"
+ *
+ *       500:
+ *         description: Internal server error while setting work-hour data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: General error category
+ *                 message:
+ *                   type: string
+ *                   description: Detailed error message
+ *                 stack:
+ *                   type: string
+ *                   description: Error stack trace
+ *                 location:
+ *                   type: string
+ *                   description: API route where the error occurred
+ *             example:
+ *               error: "Internal server error"
+ *               message: "Database query failed"
+ *               stack: "Error: Database query failed..."
+ *               location: "/setworkhoursbydate"
+ */

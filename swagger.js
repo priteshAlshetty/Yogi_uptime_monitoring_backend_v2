@@ -13,7 +13,7 @@ const options = {
 		},
 		servers: [
 			{
-				url: "http://localhost:3000/api", // Adjust as needed
+				url: "http://localhost:3000/", // Adjust as needed
 			},
 		],
 	},
