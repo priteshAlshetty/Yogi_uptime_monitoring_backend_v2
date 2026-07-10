@@ -150,6 +150,8 @@ GROUP BY machine_id;`;
         // console.dir(formatted, { depth: null, colors: true });
 
         // Create lookup map
+
+
         const uptimeMap = new Map(
             rows1.map(row => [row.machine_id, row])
         );
@@ -168,7 +170,7 @@ GROUP BY machine_id;`;
                     Shift1_Downtime_hr: "08:00",
                     Shift2_Uptime_hr: "00:00",
                     Shift2_Downtime_hr: "08:00",
-                    Total_Downtime_hr: "16:00",
+                    Total_Downtime_hr: working_hr,
                     Total_hr: "00:00"
                 };
             }
