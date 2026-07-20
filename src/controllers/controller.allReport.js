@@ -47,7 +47,8 @@ async function createExcelDaily(date) {
       br: { col: 9, row: 2.0 },  // J (end of I)
       editAs: 'twoCell',
     });
-    worksheet.getRow(2).height = 26;
+    //height of row where logo is placed
+    worksheet.getRow(2).height = 36;
 
     const formatHeader = (row) => {
       row.eachCell((cell) => {

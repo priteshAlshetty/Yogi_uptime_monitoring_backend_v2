@@ -8,7 +8,7 @@ const options = {
 		openapi: "3.0.0",
 		info: {
 			title: "YOGI Kanthika :- Uptime Monitoring Dashboard",
-			version: "1.0.0",
+			version: "1.0.2",
 			description: "A dashboard to monitor Uptime and downtime of all machines and generate reports for efficiency",
 		},
 		servers: [

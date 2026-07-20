@@ -67,7 +67,8 @@ async function getDailyData(date) {
 
 //Daily data for Excel report
 async function getReportByDate(date) {
-    const working_hr = await getWorkHourByDate(date);
+    const { working_hr, shift1_hr, shift2_hr } = await getWorkHourByDate(date);
+
     try {
         const allMachines = machineList();
         let query = `
@@ -87,7 +88,7 @@ async function getReportByDate(date) {
     ) AS shift1_uptime_hr,
 
     ROUND(
-        8 - SUM(
+        ? - SUM(
             CASE
                 WHEN TIME(dateTime) >= '08:00:00'
                     AND TIME(dateTime) < '16:00:00'
@@ -109,7 +110,7 @@ async function getReportByDate(date) {
     ) AS shift2_uptime_hr,
 
     ROUND(
-        8 - SUM(
+        ? - SUM(
             CASE
                 WHEN TIME(dateTime) >= '16:00:00'
                     AND TIME(dateTime) <= '23:59:59'
@@ -125,7 +126,7 @@ FROM uptime
 WHERE DATE(dateTime) = ?
 GROUP BY machine_id;`;
 
-        const [rows1] = await db.query(query, [working_hr, date]
+        const [rows1] = await db.query(query, [shift1_hr, shift2_hr, working_hr, date]
         );
 
         // if (!rows1.length) return null;
@@ -165,12 +166,12 @@ GROUP BY machine_id;`;
                 return {
                     Machine_Id: machineId,
                     Uptime_min: 0,
-                    Uptime_hr: 0,
+                    Uptime_hr: "00:00",
                     Shift1_Uptime_hr: "00:00",
-                    Shift1_Downtime_hr: "08:00",
+                    Shift1_Downtime_hr: convertToClockHr(shift1_hr),
                     Shift2_Uptime_hr: "00:00",
-                    Shift2_Downtime_hr: "08:00",
-                    Total_Downtime_hr: working_hr,
+                    Shift2_Downtime_hr: convertToClockHr(shift2_hr),
+                    Total_Downtime_hr: convertToClockHr(working_hr),
                     Total_hr: "00:00"
                 };
             }
@@ -181,7 +182,7 @@ GROUP BY machine_id;`;
             return {
                 Machine_Id: machineId,
                 Uptime_min: uptime_min,
-                Uptime_hr: uptime_hr,
+                Uptime_hr: convertToClockHr(uptime_hr),
                 Shift1_Uptime_hr: convertToClockHr(item.shift1_uptime_hr),
                 Shift1_Downtime_hr: convertToClockHr(item.shift1_downtime_hr),
                 Shift2_Uptime_hr: convertToClockHr(item.shift2_uptime_hr),
@@ -662,12 +663,27 @@ async function getReportByYear(year) {
 
 
 async function getWorkHourByDate(date) {
+    const hours = {}
     const [rows] = await db.query(` SELECT hours from working_hr WHERE date = ?`, [date]);
     if (rows.length > 0) {
-        return rows[0].hours;
+        if (rows[0].hours >= 8 && rows[0].hours <= 16) {
+
+            hours['working_hr'] = rows[0].hours;
+            hours['shift1_hr'] = 8;
+            hours['shift2_hr'] = rows[0].hours - 8;
+        }
+        else if (rows[0].hours < 8) {
+            hours['working_hr'] = rows[0].hours;
+            hours['shift1_hr'] = rows[0].hours;
+            hours['shift2_hr'] = 0;
+        }
     } else {
-        return 16;
+        hours['working_hr'] = 16;
+        hours['shift1_hr'] = 8;
+        hours['shift2_hr'] = 8;
     }
+
+    return hours;
 }
 
 async function setWorkHourByDate(date, hours) {
@@ -698,11 +714,13 @@ async function getWorkHourByMonth(month) {
 
             const date = `${year}-${String(monthNumber).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-            const workingHr = await getWorkHourByDate(date);
+            const { working_hr, shift1_hr, shift2_hr } = await getWorkHourByDate(date);
 
             monthlyData.push({
                 date,
-                working_hr: workingHr
+                working_hr: working_hr,
+                shift1_hr: shift1_hr,
+                shift2_hr: shift2_hr
             });
         }
 
